@@ -307,7 +307,7 @@ app.controller('CombinisController', function($scope, CombiniService, $ionicLoad
 			var marker = new google.maps.Marker({
 				position: myLatlng,
 				map: map,
-				icon: "./img/location_marker.png"
+				icon: "./assets/location_marker.png"
 				});			
 			var contentString = "<div><a ng-click='clickTest()'>Click me!</a></div>";
 			var compiled = $compile(contentString)($scope);
@@ -336,29 +336,29 @@ app.controller('CombinisController', function($scope, CombiniService, $ionicLoad
 	
 		//dummy
 		var tipos = new Array(
-			"./img/balao/balao_banca.png",
-			"./img/balao/balao_banco.png",
-			"./img/balao/balao_bicicleta.png",
-			"./img/balao/balao_bilheteunico.png",
-			"./img/balao/balao_booze.png",
-			"./img/balao/balao_cambio.png",
-			"./img/balao/balao_chaveiro.png",
-			"./img/balao/balao_coffee.png",
-			"./img/balao/balao_comida.png",
-			"./img/balao/balao_comida24h.png",
-			"./img/balao/balao_farmacia.png",
-			"./img/balao/balao_hospital.png",
-			"./img/balao/balao_impressora.png",
-			"./img/balao/balao_lan.png",
-			"./img/balao/balao_lavanderia.png",
-			"./img/balao/balao_lugarparadormir.png",
-			"./img/balao/balao_mecanico.png",
-			"./img/balao/balao_mercado.png",
-			"./img/balao/balao_policia.png",
-			"./img/balao/balao_posto.png",
-			"./img/balao/balao_tomada.png",
-			"./img/balao/balao_wc.png",
-			"./img/balao/balao_wifi.png");
+			"./assets/balao/balao_banca.png",
+			"./assets/balao/balao_banco.png",
+			"./assets/balao/balao_bicicleta.png",
+			"./assets/balao/balao_bilheteunico.png",
+			"./assets/balao/balao_booze.png",
+			"./assets/balao/balao_cambio.png",
+			"./assets/balao/balao_chaveiro.png",
+			"./assets/balao/balao_coffee.png",
+			"./assets/balao/balao_comida.png",
+			"./assets/balao/balao_comida24h.png",
+			"./assets/balao/balao_farmacia.png",
+			"./assets/balao/balao_hospital.png",
+			"./assets/balao/balao_impressora.png",
+			"./assets/balao/balao_lan.png",
+			"./assets/balao/balao_lavanderia.png",
+			"./assets/balao/balao_lugarparadormir.png",
+			"./assets/balao/balao_mecanico.png",
+			"./assets/balao/balao_mercado.png",
+			"./assets/balao/balao_policia.png",
+			"./assets/balao/balao_posto.png",
+			"./assets/balao/balao_tomada.png",
+			"./assets/balao/balao_wc.png",
+			"./assets/balao/balao_wifi.png");
 	
 		for(i = 0; i < 10; i++){
 			var marker = new google.maps.Marker({
