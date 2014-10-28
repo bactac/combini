@@ -29,7 +29,7 @@ app.controller("MainController", function($rootScope, $location, UserService, $i
     };
 		
 	$rootScope.toggleLeft = function() {
-		$ionicSideMenuDelegate.toggleLeft();
+        $ionicSideMenuDelegate.toggleLeft();
     };
 	
 });
