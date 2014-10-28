@@ -1,0 +1,54 @@
+<!--
+  This template loads for the 'tab.about' state (app.js)
+-->
+<ion-view>
+	<ion-content padding="true">
+	
+		<form ng-submit="sendForm()">	
+			
+			
+			<div class="row row-center">
+				<div class="col"><img src= "./img/balao_96/balao_coffee.png"/></div>
+				<div class="col typelabel"><h1>Lugar para dormir</h1></div>				
+			</div>
+		
+			<div class="list list-inset">
+				<label class="item item-input">
+					<input type="text" ng-model="form.ASDF.name" size=20 placeholder="Nome do lugar" required />
+				</label>	
+				
+				<label class="item range range-positive">
+					<i class="icon ion-sad"></i>
+					<input type="range" name="quality" min="0" max="5" value="3">
+					<i class="icon ion-happy"></i>
+				</label>
+				
+				<label class="item item-input item-select">
+					<div class="input-label">
+					Bairro
+					</div>
+					<select>
+						<option>Itaquera</option>
+						<option selected>Pinheiros</option>
+						<option>Jardins</option>
+					</select>
+				</label>
+				
+				<label class="item item-input">
+					<textarea ng-model="form.ASDF.comment" rows=5 placeholder="Comentário" > </textarea>
+				</label>
+			
+			</div>
+			
+			<button type="submit" class="button button-full button-balanced">Enviar!</button>	
+			
+		</form>
+		
+		
+		
+		
+		
+		
+		
+	</ion-content>
+</ion-view>
