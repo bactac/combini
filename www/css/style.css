@@ -58,6 +58,10 @@ ion-content {
 }
 
 
+.ion-ios7-star-outline, .ion-ios7-star {
+	font-size: 40px;
+}
+
 #hudbody {
 	background-color: #FFD766;
 	width: 100%;
