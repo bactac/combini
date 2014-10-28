@@ -142,7 +142,7 @@ app.controller("CombiniFormSelectController", function($scope, $stateParams, Typ
 
 
 
-app.controller("CombiniFormSendController", function($scope, $stateParams, UserService, NeighborhoodService, CombiniService) {
+app.controller("CombiniFormSendController", function($scope, $location, $stateParams, UserService, NeighborhoodService, CombiniService) {
 
     $scope.form = { combini : "" };
     $scope.form.combini = { typegroup_id : $stateParams.typegroup_id,
