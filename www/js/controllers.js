@@ -78,7 +78,6 @@ app.controller("LoginController", function($scope, $location, UserService) {
     $scope.signup = function() {
         $location.path('/signup');
     }
-
 });
 
 
@@ -167,7 +166,7 @@ app.controller("CombiniFormSendController", function($scope, $stateParams, UserS
     $scope.sendForm = function() {
         CombiniService.create($scope.form).success(function() {
             alert("Porra enviada!");
-            $location.path('/combinis.html')
+            $location.path('/combinis.html');
         }).error(function() {
             alert("Porra, falhou!");
         });
@@ -179,7 +178,6 @@ app.controller("CombiniFormSendController", function($scope, $stateParams, UserS
 
 
 });
-
 
 /**
 		COMBINIS CONTROLLER
@@ -195,12 +193,8 @@ app.controller('CombinisController', function($scope, CombiniService, $ionicLoad
         });
     };
 	
-	
-	
-	
 	function initialize() {
-	
-		var myLatlng = new google.maps.LatLng(-23.5523049,-46.743023);
+		var myLatlng = new google.maps.LatLng(-23.5577678,-46.7299445);
         
         var mapOptions = {
 			center: myLatlng,
@@ -215,27 +209,8 @@ app.controller('CombinisController', function($scope, CombiniService, $ionicLoad
 			overviewMapControl: false,
 			mapTypeId: google.maps.MapTypeId.ROADMAP
         };
-        var map = new google.maps.Map(document.getElementById("map"),
-            mapOptions);
+        var map = new google.maps.Map(document.getElementById("map"), mapOptions);
         		
-        //Marker + infowindow + angularjs compiled ng-click
-        var contentString = "<div><a ng-click='clickTest()'>Click me!</a></div>";
-        var compiled = $compile(contentString)($scope);
-
-        var infowindow = new google.maps.InfoWindow({
-          content: compiled[0]
-        });
-
-        var marker = new google.maps.Marker({
-          position: myLatlng,
-          map: map,
-          title: 'Uluru (Ayers Rock)'
-        });
-
-		//APARECER INFORMACOES DA PORRA
-        google.maps.event.addListener(marker, 'click', function() {
-          infowindow.open(map,marker);
-        });		
         $scope.map = map;
 		
 		$scope.loading = $ionicLoading;
@@ -247,52 +222,48 @@ app.controller('CombinisController', function($scope, CombiniService, $ionicLoad
 		$cordovaGeolocation.getCurrentPosition().then(function(pos) {
 			//adicionei
 			$scope.position = pos.coords;
+			myLatlng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+			$scope.map.setCenter(myLatlng);
 			
-			$scope.map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
+			
+			//Marker + infowindow + angularjs compiled ng-click
+			var marker = new google.maps.Marker({
+				position: myLatlng,
+				map: map,
+				icon: "./assets/location_marker.png"
+				});			
+			var contentString = "<div><a ng-click='clickTest()'>Click me!</a></div>";
+			var compiled = $compile(contentString)($scope);
+			var infowindow = new google.maps.InfoWindow({
+			  content: compiled[0]
+			});
+			//APARECER INFORMACOES DA PORRA
+			google.maps.event.addListener(marker, 'click', function() {
+			  infowindow.open(map,marker);
+			});		
+		
 			
         }, function(error) {
 			alert('Unable to get location: ' + error.message);
         });
 		$scope.loading.hide();
-		
-      }
-	  ionic.Platform.ready(initialize);
-    
 
+		
+	}
+			
+	ionic.Platform.ready(initialize);
+	  
+	
 	$rootScope.showMarkers = function() {
 	
-		//dummy
-		var tipos = new Array(
-			"./img/balao/balao_banca.png",
-			"./img/balao/balao_banco.png",
-			"./img/balao/balao_bicicleta.png",
-			"./img/balao/balao_bilheteunico.png",
-			"./img/balao/balao_booze.png",
-			"./img/balao/balao_cambio.png",
-			"./img/balao/balao_chaveiro.png",
-			"./img/balao/balao_coffee.png",
-			"./img/balao/balao_comida.png",
-			"./img/balao/balao_comida24h.png",
-			"./img/balao/balao_farmacia.png",
-			"./img/balao/balao_hospital.png",
-			"./img/balao/balao_impressora.png",
-			"./img/balao/balao_lan.png",
-			"./img/balao/balao_lavanderia.png",
-			"./img/balao/balao_lugarparadormir.png",
-			"./img/balao/balao_mecanico.png",
-			"./img/balao/balao_mercado.png",
-			"./img/balao/balao_policia.png",
-			"./img/balao/balao_posto.png",
-			"./img/balao/balao_tomada.png",
-			"./img/balao/balao_wc.png",
-			"./img/balao/balao_wifi.png");
+		
 	
 		for(i = 0; i < 10; i++){
 			var marker = new google.maps.Marker({
 				position: new google.maps.LatLng($scope.position.latitude + Math.random()/50-Math.random()/50,$scope.position.longitude + Math.random()/50-Math.random()/50),
 				map: $scope.map,
 				title: 'AAAAH!',
-				//icon: tipos[Math.floor(Math.random()*tipos.length)]
+				icon: "./assets/48/" + Math.floor(Math.random()*24) + ".png"
 				});
 			google.maps.event.addListener(marker, 'click', function() {
 				marker.setMap(null);
