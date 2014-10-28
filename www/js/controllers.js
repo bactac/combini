@@ -334,38 +334,14 @@ app.controller('CombinisController', function($scope, CombiniService, $ionicLoad
 	
 	$rootScope.showMarkers = function() {
 	
-		//dummy
-		var tipos = new Array(
-			"./assets/balao/balao_banca.png",
-			"./assets/balao/balao_banco.png",
-			"./assets/balao/balao_bicicleta.png",
-			"./assets/balao/balao_bilheteunico.png",
-			"./assets/balao/balao_booze.png",
-			"./assets/balao/balao_cambio.png",
-			"./assets/balao/balao_chaveiro.png",
-			"./assets/balao/balao_coffee.png",
-			"./assets/balao/balao_comida.png",
-			"./assets/balao/balao_comida24h.png",
-			"./assets/balao/balao_farmacia.png",
-			"./assets/balao/balao_hospital.png",
-			"./assets/balao/balao_impressora.png",
-			"./assets/balao/balao_lan.png",
-			"./assets/balao/balao_lavanderia.png",
-			"./assets/balao/balao_lugarparadormir.png",
-			"./assets/balao/balao_mecanico.png",
-			"./assets/balao/balao_mercado.png",
-			"./assets/balao/balao_policia.png",
-			"./assets/balao/balao_posto.png",
-			"./assets/balao/balao_tomada.png",
-			"./assets/balao/balao_wc.png",
-			"./assets/balao/balao_wifi.png");
+		
 	
 		for(i = 0; i < 10; i++){
 			var marker = new google.maps.Marker({
 				position: new google.maps.LatLng($scope.position.latitude + Math.random()/50-Math.random()/50,$scope.position.longitude + Math.random()/50-Math.random()/50),
 				map: $scope.map,
 				title: 'AAAAH!',
-				icon: tipos[Math.floor(Math.random()*tipos.length)]
+				icon: "./assets/48/" + Math.floor(Math.random()*24) + ".png"
 				});
 			google.maps.event.addListener(marker, 'click', function() {
 				marker.setMap(null);
