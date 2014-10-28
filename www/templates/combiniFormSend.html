@@ -1,0 +1,60 @@
+<!--
+  This template loads for the 'tab.about' state (app.js)
+-->
+<ion-view>
+	<ion-content padding="true">
+	
+		<form ng-submit="sendForm()">	
+			
+			
+			<div class="row row-center">
+				<div class="col"><img src= "./img/balao_96/balao_coffee.png"/></div>
+				<div class="col typelabel"><h1>{{type_name}}</h1></div>				
+			</div>
+		
+			<div class="list list-inset">
+				<label class="item item-input">
+					<input type="text" ng-model="form.combini.name" size=20 placeholder="Nome do lugar" required />
+				</label>	
+				
+				<label class="item">
+					<center>
+						<label ng-click="form.combini.quality_rank=1"><i class="icon" ng-class="{ 'ion-ios7-star' : form.combini.quality_rank >= 1, 'ion-ios7-star-outline' : form.combini.quality_rank < 1 }" ></i>
+						</label>
+						<label ng-click="form.combini.quality_rank=2"><i class="icon" ng-class="{ 'ion-ios7-star' : form.combini.quality_rank >= 2, 'ion-ios7-star-outline' : form.combini.quality_rank < 2 }" ></i>
+						</label>
+						<label ng-click="form.combini.quality_rank=3"><i class="icon" ng-class="{ 'ion-ios7-star' : form.combini.quality_rank >= 3, 'ion-ios7-star-outline' : form.combini.quality_rank < 3 }" ></i>
+						</label>
+						<label ng-click="form.combini.quality_rank=4"><i class="icon" ng-class="{ 'ion-ios7-star' : form.combini.quality_rank >= 4, 'ion-ios7-star-outline' : form.combini.quality_rank < 4 }" ></i>
+						</label>
+						<label ng-click="form.combini.quality_rank=5"><i class="icon" ng-class="{ 'ion-ios7-star' : form.combini.quality_rank >= 5, 'ion-ios7-star-outline' : form.combini.quality_rank < 5 }" ></i>
+						</label>
+					</center>
+				</label>
+				
+				<label class="item item-input item-select">
+					<div class="input-label">
+					Bairro
+					</div>
+					<select ng-model="form.combini.neighborhood_id" ng-options="neighborhood.id as neighborhood.name for neighborhood in neighborhoods">
+					</select>
+				</label>
+				
+				<label class="item item-input">
+					<textarea ng-model="form.combini.comment" rows=5 placeholder="Comentário" > </textarea>
+				</label>
+			
+			</div>
+			
+			<button type="submit" class="button button-full button-balanced">Enviar!</button>	
+			
+		</form>
+		
+		
+		
+		
+		
+		
+		
+	</ion-content>
+</ion-view>

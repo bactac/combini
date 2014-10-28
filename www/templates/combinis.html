@@ -1,0 +1,27 @@
+<!--
+  This template loads for the 'tab.about' state (app.js)
+-->
+<ion-view>
+	
+
+		<div id="map" data-tap-disabled="true"></div>
+		
+		
+		<div id="hud">
+			<img src="./img/hud/bottom-left.png" />
+			<form id="hudform">
+			
+				<i id="newcombini" class="icon ion-chatbubble-working" ng-click="gotoForm()"></i>
+			</form>
+		
+			<div id="hudbody">
+			
+			{{position.latitude}}<br>
+			{{position.longitude}}
+			</div>
+		
+		</div>
+		
+		
+		
+</ion-view>

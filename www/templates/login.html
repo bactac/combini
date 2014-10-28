@@ -1,0 +1,26 @@
+<!--
+  This template loads for the 'tab.about' state (app.js)
+-->
+<ion-view>
+  <ion-content padding="true">
+	<center>
+		<img src="img/logo.png" style="max-width:100%; height:200px; display:inline;">
+		<br><br>
+		<form  ng-submit="login()">
+			<input type="text" name="email" size=30 placeholder="email" ng-model="credentials.user.email" />
+			<br>
+			<input type="password" name="password" size=30 placeholder="password" ng-model="credentials.user.password" />
+			<br>
+			<br>
+			<!--<img src="img/button_login.png" ng-click="login()" />-->
+			<button type="submit"  class="button button-full button-energized">Login</button>
+		</form>
+
+		<!-- <a href=""><img src="img/login_facebook.png" /></a> -->
+		<button class="button button-full button-energized" ng-click="signup()">Cadastre-se!</button>
+		<button class="button button-small button-full button-energized" ng-click="withoutLogin()">Entrar sem login</button>
+		<!--<a href="#/signup"><img src="img/button_signup.png" /></a>-->
+		
+	</center>
+  </ion-content>
+</ion-view>

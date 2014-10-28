@@ -1,0 +1,352 @@
+var app = angular.module("controllers", ['services']);
+
+
+
+/*******************************************************************************
+*
+*
+*
+*   Controllers para index
+*
+*
+*
+********************************************************************************/
+
+app.controller("MainController", function($rootScope, $location, UserService, $ionicSideMenuDelegate) {
+    $rootScope.isLoggedIn = function() {
+        return UserService.isLoggedIn();
+    };
+
+    $rootScope.logout = function() {
+        
+        $location.path('/login');
+        return UserService.logout();
+    };
+	
+	
+	$rootScope.showUser = function() {
+		$location.path('/showUser');
+    };
+		
+	$rootScope.toggleLeft = function() {
+		$ionicSideMenuDelegate.toggleLeft();
+    };
+	
+});
+
+
+
+/*******************************************************************************
+*
+*
+*
+*   Controllers para paginas
+*
+*
+*
+********************************************************************************/
+
+
+
+app.controller("LoginController", function($scope, $location, UserService) {
+    $scope.credentials = { user : "" };
+    $scope.credentials.user = { email:"asdf@asdf.com", password : "asdf" };
+
+    if (UserService.isLoggedIn()) {
+		//alert("logado!!!");
+		$location.path('/combinis');
+	}
+    $scope.login = function() {
+		
+		UserService.login($scope.credentials).success(function() {
+            //alert("Login Win!");
+			$location.path('/combinis');
+        }).error(function() {
+            alert("Login Fail");
+        });
+    };
+
+    $scope.withoutLogin= function() {
+        UserService.withoutLogin().success(function() {
+            //alert("AAAAAAAAAAAAH!");
+			$location.path('/combinis');
+        }).error(function() {
+            //alert("Entrada Fail");
+        });
+    };
+
+    $scope.signup = function() {
+        $location.path('/signup');
+    }
+
+});
+
+
+
+
+
+app.controller("SignupController", function($scope, $location, UserService, TitleService) {
+    $scope.form = { user: "" };
+    $scope.form.user = { title_id : "",name : "",email : "",motto : "",avatar : "",password : "",password2 : "" };
+
+    TitleService.index().success(function(data) {
+        $scope.titles = data;
+        $scope.form.user.title_id = data[0].id;
+    }).error(function(data) {
+        alert("Nao consegui puxar os titulos T_T");
+    });
+
+    $scope.sendForm = function() {
+        if ($scope.form.user.password == $scope.form.user.password2) {
+            UserService.create($scope.form).success(function() {
+                alert("Conta criada!");
+                $location.path('/combini');
+            }).error(function() {
+                alert("Criacao da conta falhou");
+            });    
+        }
+        else {
+            alert("Passwords nao batem!");
+        }
+        
+    };
+});
+
+
+app.controller("CombiniFormSelectController", function($scope, $stateParams, TypegroupService) {
+    var request = TypegroupService.index();
+
+    $scope.latitude = $stateParams.latitude;
+    $scope.longitude = $stateParams.longitude;
+
+    request.success(function(data){
+        $scope.typegroups = data;
+        $scope.types = []
+        for (var i = 0; i < $scope.typegroups.length; i++) {
+            request = TypegroupService.showTypes($scope.typegroups[i].id);
+            request.success(function(data) {
+                $scope.types[data[0].typegroup_id] = data
+            });
+            request.error(function(data) {
+                alert("ERRO!");
+            });
+        }
+    });
+    request.error(function(data){
+        alert("ERRO!");
+    });
+
+
+
+});
+
+
+
+
+app.controller("CombiniFormSendController", function($scope, $stateParams, UserService, NeighborhoodService, CombiniService) {
+
+    $scope.form = { combini : "" };
+    $scope.form.combini = { typegroup_id : $stateParams.typegroup_id,
+                            type_id : $stateParams.type_id,
+                            comment : "",
+                            latitude : $stateParams.latitude,
+                            longitude : $stateParams.longitude,
+                            name : "",
+                            quality_rank : 3,
+                            neighborhood_id : "" };
+
+    $scope.type_name = $stateParams.type_name;
+
+    $scope.user = UserService.getUser();
+
+    NeighborhoodService.index($scope.form.combini.latitude, $scope.form.combini.longitude).success(function(data) {
+        $scope.neighborhoods = data;
+        $scope.form.combini.neighborhood_id = data[0].id;
+    });
+
+    $scope.sendForm = function() {
+        CombiniService.create($scope.form).success(function() {
+            alert("Porra enviada!");
+            $location.path('/combinis.html')
+        }).error(function() {
+            alert("Porra, falhou!");
+        });
+    };
+
+    $scope.setQuality = function(value) {
+        $scope.form.combini.quality_rank = value;
+    }
+
+
+});
+
+
+/**
+		COMBINIS CONTROLLER
+**/
+app.controller('CombinisController', function($scope, CombiniService, $ionicLoading, $compile, $cordovaGeolocation, $location, UserService, $rootScope) {
+	
+	$scope.form = { latitude : "", longitude : "", limit : ""};
+    $scope.combinis = [];
+    $scope.getCombinis = function() {
+
+    CombiniService.index($scope.form.latitude, $scope.form.longitude, $scope.form.limit).success(function(data){
+            $scope.combinis = data;
+        });
+    };
+	
+	
+	
+	
+	function initialize() {
+	
+		var myLatlng = new google.maps.LatLng(-23.5523049,-46.743023);
+        
+        var mapOptions = {
+			center: myLatlng,
+			zoom: 16,
+			panControl: false,
+			zoomControl: false,
+			mapTypeControl: false,
+			scaleControl: false,
+			streetViewControl: false,
+			navigationControl: false,
+			disableDefaultUI: false,
+			overviewMapControl: false,
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById("map"),
+            mapOptions);
+        		
+        //Marker + infowindow + angularjs compiled ng-click
+        var contentString = "<div><a ng-click='clickTest()'>Click me!</a></div>";
+        var compiled = $compile(contentString)($scope);
+
+        var infowindow = new google.maps.InfoWindow({
+          content: compiled[0]
+        });
+
+        var marker = new google.maps.Marker({
+          position: myLatlng,
+          map: map,
+          title: 'Uluru (Ayers Rock)'
+        });
+
+		//APARECER INFORMACOES DA PORRA
+        google.maps.event.addListener(marker, 'click', function() {
+          infowindow.open(map,marker);
+        });		
+        $scope.map = map;
+		
+		$scope.loading = $ionicLoading;
+		$scope.loading.show({
+          content: 'Getting current location...',
+          showBackdrop: false
+        });
+		
+		$cordovaGeolocation.getCurrentPosition().then(function(pos) {
+			//adicionei
+			$scope.position = pos.coords;
+			
+			$scope.map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
+			
+        }, function(error) {
+			alert('Unable to get location: ' + error.message);
+        });
+		$scope.loading.hide();
+		
+      }
+	  ionic.Platform.ready(initialize);
+    
+
+	$rootScope.showMarkers = function() {
+	
+		//dummy
+		var tipos = new Array(
+			"./img/balao/balao_banca.png",
+			"./img/balao/balao_banco.png",
+			"./img/balao/balao_bicicleta.png",
+			"./img/balao/balao_bilheteunico.png",
+			"./img/balao/balao_booze.png",
+			"./img/balao/balao_cambio.png",
+			"./img/balao/balao_chaveiro.png",
+			"./img/balao/balao_coffee.png",
+			"./img/balao/balao_comida.png",
+			"./img/balao/balao_comida24h.png",
+			"./img/balao/balao_farmacia.png",
+			"./img/balao/balao_hospital.png",
+			"./img/balao/balao_impressora.png",
+			"./img/balao/balao_lan.png",
+			"./img/balao/balao_lavanderia.png",
+			"./img/balao/balao_lugarparadormir.png",
+			"./img/balao/balao_mecanico.png",
+			"./img/balao/balao_mercado.png",
+			"./img/balao/balao_policia.png",
+			"./img/balao/balao_posto.png",
+			"./img/balao/balao_tomada.png",
+			"./img/balao/balao_wc.png",
+			"./img/balao/balao_wifi.png");
+	
+		for(i = 0; i < 10; i++){
+			var marker = new google.maps.Marker({
+				position: new google.maps.LatLng($scope.position.latitude + Math.random()/50-Math.random()/50,$scope.position.longitude + Math.random()/50-Math.random()/50),
+				map: $scope.map,
+				title: 'AAAAH!',
+				//icon: tipos[Math.floor(Math.random()*tipos.length)]
+				});
+			google.maps.event.addListener(marker, 'click', function() {
+				marker.setMap(null);
+			});		
+		}
+	}
+	  /*
+    $scope.centerOnMe = function() {
+        if(!$scope.map) {
+          return;
+        }
+
+        $scope.loading = $ionicLoading;
+		$scope.loading.show({
+          content: 'Getting current location...',
+          showBackdrop: false
+        });
+
+        navigator.geolocation.getCurrentPosition(function(pos) {
+          $scope.map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
+          $scope.loading.hide();
+        }, function(error) {
+          alert('Unable to get location: ' + error.message);
+        });
+      };
+      */
+    $scope.clickTest = function() {
+        alert('Example of infowindow with ng-click')
+    };
+	
+	$scope.gotoForm = function() {
+        if ($scope.position) {
+            $location.path('/combiniFormSelect/' + $scope.position.latitude + '/' + $scope.position.longitude);    
+        }
+        else {
+            alert("Nao temos sua posicao ainda!");
+        }
+		
+	}
+	
+	$scope.logout = function() {
+		$location.path('/login');
+        return UserService.logout();
+	}
+	
+});
+
+
+
+app.controller("showUserController", function($scope) {
+
+});
+
+
+
+
+
