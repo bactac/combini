@@ -32,6 +32,9 @@ app.controller("MainController", function($rootScope, $location, UserService, $i
 		$ionicSideMenuDelegate.toggleLeft();
     };
 	
+	$rootScope.editProfile = function() {
+		$location.path('/editProfile');
+	}
 });
 
 
@@ -317,7 +320,6 @@ app.controller('CombinisController', function($scope, CombiniService, $ionicLoad
 app.controller("showUserController", function($scope) {
 
 });
-
 
 
 

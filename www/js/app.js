@@ -46,7 +46,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
     url: '/signup',
 	controller: 'SignupController'});
   
-  
+    $stateProvider.state('editProfile', {
+    templateUrl: 'templates/editProfile.html',
+    url: '/editProfile',
+	controller: 'editProfileController'});
+	
     $urlRouterProvider.otherwise('login');
 });
 
