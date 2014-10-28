@@ -155,6 +155,7 @@ app.controller("CombiniFormSendController", function($scope, $location, $statePa
                             neighborhood_id : "" };
 
     $scope.type_name = $stateParams.type_name;
+    $scope.type_id = $stateParams.type_id;
 
     $scope.user = UserService.getUser();
 
