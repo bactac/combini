@@ -178,7 +178,7 @@ app.factory('UserService', function($http, StorageService){
         },
 
         isLoggedIn: function() {
-            return StorageService.get('authenticated');
+            return StorageService.get('authenticated') == "true";
         },
 
         // index: function(value, search, status, limit, pag) {

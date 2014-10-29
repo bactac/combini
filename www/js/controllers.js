@@ -19,6 +19,7 @@ app.controller("MainController", function($rootScope, $location, UserService, $i
 
     $rootScope.logout = function() {      
         UserService.logout();  
+        console.log(!$rootScope.isLoggedIn());
 		$rootScope.toggleRight();
         $location.path('/login');
     };
@@ -37,15 +38,17 @@ app.controller("MainController", function($rootScope, $location, UserService, $i
 	$rootScope.editProfile = function() {		
 		$rootScope.toggleRight();
 		$location.path('/editProfile');
-	}
+	};
 
 	$rootScope.gotoStore = function() {
 		$rootScope.toggleRight();
 		$location.path('/store');
-	}
-    
-    if (!$rootScope.isLoggedIn())
+	};
+
+
+    if (!$rootScope.isLoggedIn()) {
         $location.path('/login');
+    }
     
 });
 
@@ -195,7 +198,7 @@ app.controller("CombiniFormSendController", function($scope, $location, $statePa
 		COMBINIS CONTROLLER
 **/
 app.controller('CombinisController', function($scope, CombiniService, $ionicLoading, $compile, $cordovaGeolocation, $location, UserService, $rootScope, $timeout) {
-	
+
 	$scope.form = { latitude : "", longitude : "", limit : ""};
     $scope.combinis = [];
     $scope.getCombinis = function() {
