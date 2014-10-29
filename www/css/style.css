@@ -59,7 +59,9 @@ ion-content {
 
 
 .ion-ios7-star-outline, .ion-ios7-star {
-	font-size: 40px;
+	font-size: 50px;
+	padding-right: 10px;
+	padding-left:  10px;
 }
 
 #hudbody {
@@ -115,4 +117,16 @@ ion-content {
 .list > ion-item {
 	height: 40px;
 	padding: 0px;	
+}
+
+.avatar_sidebar {
+	display: inline-block;
+	position: absolute;
+	bottom: 0px;
+	width: inherit;
+}
+
+.full_title {
+	font-size: 20px;
+	
 }

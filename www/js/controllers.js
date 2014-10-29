@@ -43,6 +43,7 @@ app.controller("MainController", function($rootScope, $location, UserService, $i
 		$rootScope.toggleRight();
 		$location.path('/store');
 	}
+	
 });
 
 
