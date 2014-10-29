@@ -58,6 +58,10 @@ ion-content {
 }
 
 
+.ion-ios7-star-outline, .ion-ios7-star {
+	font-size: 40px;
+}
+
 #hudbody {
 	background-color: #FFD766;
 	width: 100%;
@@ -71,7 +75,7 @@ ion-content {
 .sidebarlogo {
 	width: 100%;
 	height: 100px;
-	background-image: url('/img/logo.png');
+	background-image: url('/assets/logo.png');
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: contain;

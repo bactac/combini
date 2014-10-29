@@ -5,14 +5,6 @@
 // the 2nd parameter is an array of 'requires'
 var app = angular.module('combini', ['ionic', 'controllers', 'services', 'ngCordova']);
 
-
-app.config(['$compileProvider',function( $compileProvider ){ 
-         $compileProvider.imgSrcSanitizationWhitelist(/^\s(https|file|blob|cdvfile):|data:image\//);
-	}
-]);
-
-
-
 app.config(function($stateProvider, $urlRouterProvider) {
 
 
@@ -46,8 +38,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
     url: '/signup',
 	controller: 'SignupController'});
   
-  
-    $urlRouterProvider.otherwise('login');
+    $stateProvider.state('editProfile', {
+    templateUrl: 'templates/editProfile.html',
+    url: '/editProfile',
+	controller: 'editProfileController'});
+	
+    $urlRouterProvider.otherwise('combinis');
 });
 
 app.config(function( $compileProvider ){

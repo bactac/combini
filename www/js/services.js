@@ -1,22 +1,28 @@
 var app = angular.module("services", []);
 
 // Servico para atribuir variaveis de sessao
-app.factory("SessionService", function() {
+app.factory("StorageService", function($window) {
     return {
-        get: function(key) {
-            return sessionStorage.getItem(key);
+        set: function(key, value) {
+            $window.localStorage[key] = value;
         },
-        set: function(key, val) {
-            return sessionStorage.setItem(key, val);
+        get: function(key, defaultValue) {
+            return $window.localStorage[key] || defaultValue;
+        },
+        setObject: function(key, value) {
+            $window.localStorage[key] = JSON.stringify(value);
+        },
+        getObject: function(key) {
+            return JSON.parse($window.localStorage[key] || '{}');
         },
         unset: function(key) {
-            return sessionStorage.removeItem(key);
+            $window.localStorage[key] = null;
         }
     }
 });
 
 
-app.factory('CombiniService', function($http, SessionService){
+app.factory('CombiniService', function($http, StorageService){
     return {
         index: function(latitude, longitude, limit) {
             
@@ -97,7 +103,7 @@ app.factory('CombiniService', function($http, SessionService){
         },
 
         create: function(combini) {
-            combini.combini.user_id = SessionService.get('id');
+            combini.combini.user_id = StorageService.get('id');
             return $http({
                 url: 'http://wickedvikings.herokuapp.com/combinis.json',
                 method: 'POST',
@@ -111,19 +117,15 @@ app.factory('CombiniService', function($http, SessionService){
 });
 
 // Servico para conectar com o banco de Usuarios
-app.factory('UserService', function($http, SessionService){
-    var cacheSession   = function(data) {
-        SessionService.set('authenticated', true);
-        SessionService.set('name', data.name);
-        SessionService.set('title', data.title);
-        SessionService.set('id', data.id);
+app.factory('UserService', function($http, StorageService){
+    var setUser   = function(data) {
+        StorageService.set('authenticated', true);
+        StorageService.setObject('user', data);
     };
 
-    var uncacheSession = function() {
-        SessionService.unset('authenticated');
-        SessionService.unset('name');
-        SessionService.unset('title');
-        SessionService.unset('id');
+    var unsetUser = function() {
+        StorageService.set('authenticated',false);
+        StorageService.unset('user');
     };
 
     return {
@@ -137,7 +139,7 @@ app.factory('UserService', function($http, SessionService){
                 data: credentials
             });
             login.success(function(data){
-                cacheSession(data);
+                setUser(data);
             });
             // login.success(FlashService.clear);
             // login.error(loginError);
@@ -153,7 +155,7 @@ app.factory('UserService', function($http, SessionService){
                 data: credentials
             });
             login.success(function(data){
-                cacheSession(data);
+                setUser(data);
             });
             // login.success(FlashService.clear);
             // login.error(loginError);
@@ -170,13 +172,13 @@ app.factory('UserService', function($http, SessionService){
             //     headers: { 'Content-Type': 'application/json' },
             //     params: input
             // });
-            // logout.success(uncacheSession);
+            // logout.success(uncacheStorage);
             // return logout;
-            uncacheSession();
+            unsetUser();
         },
 
         isLoggedIn: function() {
-            return SessionService.get('authenticated');
+            return StorageService.get('authenticated');
         },
 
         // index: function(value, search, status, limit, pag) {
@@ -221,7 +223,7 @@ app.factory('UserService', function($http, SessionService){
                 headers: { 'Content-Type': 'application/json' },
                 data: user
             }).success(function(data){
-                cacheSession(data);
+                cacheStorage(data);
             });
         },
 
@@ -236,12 +238,12 @@ app.factory('UserService', function($http, SessionService){
         },
 
         getUser: function() {
-            return {
-                id: SessionService.get('id'),
-                name: SessionService.get('name'),
-                title: SessionService.get('title')
-            };
-        }
+            return StorageService.getObject('user');
+        },
+
+        updateMyUser: function(user) {
+            return StorageService.setObject('user',user);
+        },
         
     };
 });

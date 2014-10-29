@@ -18,9 +18,9 @@ app.controller("MainController", function($rootScope, $location, UserService, $i
     };
 
     $rootScope.logout = function() {
-        
+        UserService.logout();
+        $rootScope.toggleLeft();
         $location.path('/login');
-        return UserService.logout();
     };
 	
 	
@@ -32,6 +32,12 @@ app.controller("MainController", function($rootScope, $location, UserService, $i
         $ionicSideMenuDelegate.toggleLeft();
     };
 	
+	$rootScope.editProfile = function() {
+		$location.path('/editProfile');
+	}
+
+    if (!$rootScope.isLoggedIn())
+        $location.path('/login');
 });
 
 
@@ -52,10 +58,6 @@ app.controller("LoginController", function($scope, $location, UserService) {
     $scope.credentials = { user : "" };
     $scope.credentials.user = { email:"asdf@asdf.com", password : "asdf" };
 
-    if (UserService.isLoggedIn()) {
-		//alert("logado!!!");
-		$location.path('/combinis');
-	}
     $scope.login = function() {
 		
 		UserService.login($scope.credentials).success(function() {
@@ -183,7 +185,7 @@ app.controller("CombiniFormSendController", function($scope, $location, $statePa
 /**
 		COMBINIS CONTROLLER
 **/
-app.controller('CombinisController', function($scope, CombiniService, $ionicLoading, $compile, $cordovaGeolocation, $location, UserService, $rootScope) {
+app.controller('CombinisController', function($scope, CombiniService, $ionicLoading, $compile, $cordovaGeolocation, $location, UserService, $rootScope, $timeout) {
 	
 	$scope.form = { latitude : "", longitude : "", limit : ""};
     $scope.combinis = [];
@@ -193,6 +195,86 @@ app.controller('CombinisController', function($scope, CombiniService, $ionicLoad
             $scope.combinis = data;
         });
     };
+
+    var user = UserService.getUser();
+
+    UserService.show(user.id).success(function(data) {
+
+        var diffXp = data.xp - user.xp;
+        var diffLvl = data.lvl - user.lvl;
+        var diffGold = data.gold - user.gold;
+
+        var alertXp = function() {
+            var count = 3;
+            var counter;
+
+            $scope.alert = "Ganhou " + (diffXp) + " Xp!";
+
+            var countdown = function() {
+                if (count == 0) {
+                    $timeout.cancel(counter);
+                    $scope.alert = "";
+                    if (diffLvl)
+                        alertLvl();
+                    else if (diffGold)
+                        alertGold();
+                }
+                else {
+                    counter = $timeout(function() {
+                        count--;   
+                        countdown();   
+                    }, 1000);    
+                }
+            };
+            countdown();
+        }
+        var alertLvl = function() {
+            var count = 3;
+            var counter;
+
+            $scope.alert = "Ganhou " + (diffLvl) + " Lvl!";
+
+            var countdown = function() {
+                if (count == 0) {
+                    $timeout.cancel(counter);
+                    $scope.alert = "";
+                    if (diffGold)
+                        alertGold();
+                }
+                else {
+                    counter = $timeout(function() {
+                        count--;   
+                        countdown();   
+                    }, 1000);    
+                }
+            };
+            countdown();
+        }
+        var alertGold = function() {
+            var count = 3;
+            var counter;
+
+            $scope.alert = "Ganhou " + (diffGold) + " gold!";
+
+            var countdown = function() {
+                if (count == 0) {
+                    $timeout.cancel(counter);
+                    $scope.alert = "";
+                }
+                else {
+                    counter = $timeout(function() {
+                        count--;   
+                        countdown();   
+                    }, 1000);    
+                }
+            };
+            countdown();
+        }
+
+        if (diffXp) 
+            alertXp();
+
+    });
 	
 	function initialize() {
 		var myLatlng = new google.maps.LatLng(-23.5577678,-46.7299445);
@@ -303,12 +385,7 @@ app.controller('CombinisController', function($scope, CombiniService, $ionicLoad
             alert("Nao temos sua posicao ainda!");
         }
 		
-	}
-	
-	$scope.logout = function() {
-		$location.path('/login');
-        return UserService.logout();
-	}
+	};
 	
 });
 
@@ -317,7 +394,6 @@ app.controller('CombinisController', function($scope, CombiniService, $ionicLoad
 app.controller("showUserController", function($scope) {
 
 });
-
 
 
 
