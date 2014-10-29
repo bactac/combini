@@ -35,6 +35,10 @@ app.controller("MainController", function($rootScope, $location, UserService, $i
 	$rootScope.editProfile = function() {
 		$location.path('/editProfile');
 	}
+	
+	$rootScope.gotoStore = function() {
+		$location.path('/store');
+	}
 });
 
 
@@ -327,4 +331,9 @@ app.controller("editProfileController", function($scope) {
 
 });
 
+
+
+app.controller("storeController", function($scope) {
+
+});
 

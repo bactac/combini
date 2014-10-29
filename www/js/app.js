@@ -51,6 +51,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
     url: '/editProfile',
 	controller: 'editProfileController'});
 	
+	$stateProvider.state('store', {
+    templateUrl: 'templates/store.html',
+    url: '/store',
+	controller: 'storeController'});
+	
     $urlRouterProvider.otherwise('login');
 });
 
