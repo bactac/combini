@@ -401,14 +401,30 @@ app.controller('CombinisController', function($scope, CombiniService, $ionicLoad
 
 
 
-app.controller("showUserController", function($scope) {
-
+app.controller("showUserController", function($scope, UserService) {
+    $scope.user = UserService.getUser();
 });
 
 
 
-app.controller("editProfileController", function($scope) {
+app.controller("editProfileController", function($scope, $location, UserService) {
+    $scope.form = { user : "" };
+    $scope.form.user = UserService.getUser();
 
+    $scope.sendForm = function() {
+        if ($scope.form.user.password == $scope.form.user.password2) {
+            UserService.update($scope.form).success(function() {
+                alert("Updato!");
+                $location.path('/combinis');
+            }).error(function() {
+                alert("Update falhou");
+            });    
+        }
+        else {
+            alert("Passwords nao batem!");
+        }
+        
+    };
 });
 
 
