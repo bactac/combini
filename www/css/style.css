@@ -130,3 +130,19 @@ ion-content {
 	font-size: 20px;
 	
 }
+
+
+
+.col.store {
+	border-radius : 25px;
+	background-color: #FAFAFA;
+	margin: 10px;
+	box-shadow: -5px 5px 12px 3px #CCC inset, 
+				5px -5px 12px 3px #CCC inset;
+	padding-bottom: 20px;
+	font-size: 22px;
+}
+
+.star_show_combini {
+	font-size: 32px;
+}

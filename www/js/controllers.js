@@ -327,16 +327,16 @@ app.controller('CombinisController', function($scope, CombiniService, $ionicLoad
 				map: map,
 				icon: "./assets/location_marker.png"
 				});			
-			var contentString = "<div><a ng-click='clickTest()'>Click me!</a></div>";
+			/*var contentString = "<div><a ng-click='clickTest()'>Click me!</a></div>";
 			var compiled = $compile(contentString)($scope);
 			var infowindow = new google.maps.InfoWindow({
 			  content: compiled[0]
 			});
 			//APARECER INFORMACOES DA PORRA
 			google.maps.event.addListener(marker, 'click', function() {
-			  infowindow.open(map,marker);
+			  //infowindow.open(map,marker);
 			});		
-		
+			*/
 			
         }, function(error) {
 			alert('Unable to get location: ' + error.message);
@@ -345,23 +345,21 @@ app.controller('CombinisController', function($scope, CombiniService, $ionicLoad
 
 		
 	}
-			
 	ionic.Platform.ready(initialize);
 	  
 	
 	$rootScope.showMarkers = function() {
-	
-		
-	
 		for(i = 0; i < 10; i++){
 			var marker = new google.maps.Marker({
-				position: new google.maps.LatLng($scope.position.latitude + Math.random()/50-Math.random()/50,$scope.position.longitude + Math.random()/50-Math.random()/50),
-				map: $scope.map,
-				title: 'AAAAH!',
-				icon: "./assets/48/" + Math.floor(Math.random()*24) + ".png"
-				});
+					position: new google.maps.LatLng($scope.position.latitude + Math.random()/50-Math.random()/50,$scope.position.longitude + Math.random()/50-Math.random()/50),
+					map: $scope.map,
+					title: 'AAAAH!',
+					icon: "./assets/48/" + Math.floor(Math.random()*23 + 1) + ".png"
+					});
+					
 			google.maps.event.addListener(marker, 'click', function() {
-				marker.setMap(null);
+				$location.path('/showCombini');
+				alert("deveria ter ido pro /showCombini");
 			});		
 		}
 	}
@@ -435,3 +433,7 @@ app.controller("storeController", function($scope) {
 
 });
 
+
+app.controller("showCombiniController", function($scope) {
+
+});

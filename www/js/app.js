@@ -48,6 +48,13 @@ app.config(function($stateProvider, $urlRouterProvider) {
     url: '/store',
 	controller: 'storeController'});
 	
+	$stateProvider.state('showCombini', {
+    templateUrl: 'templates/showCombini.html',
+    url: '/showCombini',
+	controller: 'showCombiniController'});
+	
+	
+	
     $urlRouterProvider.otherwise('combinis');
 });
 
