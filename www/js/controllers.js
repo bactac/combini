@@ -171,7 +171,7 @@ app.controller("CombiniFormSendController", function($scope, $location, $statePa
     $scope.type_name = $stateParams.type_name;
     $scope.type_id = $stateParams.type_id;
 
-    $scope.user = UserService.getUser();
+    $scope.form.combini.user_id = UserService.getUser().id
 
     NeighborhoodService.index($scope.form.combini.latitude, $scope.form.combini.longitude).success(function(data) {
         $scope.neighborhoods = data;

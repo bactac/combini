@@ -103,7 +103,6 @@ app.factory('CombiniService', function($http, StorageService){
         },
 
         create: function(combini) {
-            combini.combini.user_id = StorageService.get('id');
             return $http({
                 url: 'http://wickedvikings.herokuapp.com/combinis.json',
                 method: 'POST',
