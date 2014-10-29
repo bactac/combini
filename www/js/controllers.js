@@ -180,10 +180,10 @@ app.controller("CombiniFormSendController", function($scope, $location, $statePa
 
     $scope.sendForm = function() {
         CombiniService.create($scope.form).success(function() {
-            alert("Porra enviada!");
+            alert("Combini enviado!");
             $location.path('/combinis.html');
         }).error(function() {
-            alert("Porra, falhou!");
+            alert("Falha ao criar novo Combini...");
         });
     };
 
