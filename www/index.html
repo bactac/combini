@@ -35,9 +35,8 @@
 		
 			<ion-side-menus>
 				<!-- Center content -->
-				<ion-side-menu-content edge-drag-threshold="true">
+				<ion-side-menu-content  drag-content="isLoggedIn()" edge-drag-threshold="true">
 				
-					
 					<ion-header-bar class="bar bar-header">
 						<button class="button button-clear icon ion-arrow-left-a" onClick="history.go(-1);"></button>
 						<button class="button button-clear" ng-click="toggleRight()">
@@ -48,7 +47,6 @@
 				
 					<ion-nav-view></ion-nav-view>
 				</ion-side-menu-content>
-
 				<!-- right menu -->
 				<ion-side-menu side="right">
 					<a href="/#/combinis"><div class="sidebarlogo" ng-click="toggleRight()"></div></a>
