@@ -39,7 +39,7 @@
 				
 					<ion-header-bar class="bar bar-header">
 						<button class="button button-clear icon ion-arrow-left-a" onClick="history.go(-1);"></button>
-						<button class="button button-clear" ng-click="toggleRight()">
+						<button class="button button-clear" ng-click="toggleRight()" ng-show="isLoggedIn()">
 						<i class="icon ion-navicon"></i>
 						</button> 
 					</ion-header-bar>
