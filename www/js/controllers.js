@@ -17,27 +17,36 @@ app.controller("MainController", function($rootScope, $location, UserService, $i
         return UserService.isLoggedIn();
     };
 
-    $rootScope.logout = function() {
-        UserService.logout();
-        $rootScope.toggleLeft();
+    $rootScope.logout = function() {      
+        UserService.logout();  
+		$rootScope.toggleRight();
         $location.path('/login');
     };
 	
 	
 	$rootScope.showUser = function() {
+	
+		$rootScope.toggleRight();
 		$location.path('/showUser');
     };
 		
-	$rootScope.toggleLeft = function() {
-        $ionicSideMenuDelegate.toggleLeft();
+	$rootScope.toggleRight = function() {
+		$ionicSideMenuDelegate.toggleRight();
     };
 	
-	$rootScope.editProfile = function() {
+	$rootScope.editProfile = function() {		
+		$rootScope.toggleRight();
 		$location.path('/editProfile');
 	}
 
+	$rootScope.gotoStore = function() {
+		$rootScope.toggleRight();
+		$location.path('/store');
+	}
+    
     if (!$rootScope.isLoggedIn())
         $location.path('/login');
+    
 });
 
 
@@ -397,4 +406,13 @@ app.controller("showUserController", function($scope) {
 
 
 
+app.controller("editProfileController", function($scope) {
+
+});
+
+
+
+app.controller("storeController", function($scope) {
+
+});
 
