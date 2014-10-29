@@ -359,7 +359,6 @@ app.controller('CombinisController', function($scope, CombiniService, $ionicLoad
 					
 			google.maps.event.addListener(marker, 'click', function() {
 				$location.path('/showCombini');
-				alert("deveria ter ido pro /showCombini");
 			});		
 		}
 	}
