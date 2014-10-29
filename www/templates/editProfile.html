@@ -23,15 +23,12 @@
 						<div style="margin-top:-6px;"><img src="assets/Avatares/mario-body.png" ></div>
 					</div>
 				</center>
-				<label class="item item-input">
-					<input type="text" ng-model="form.user.name" size=20 placeholder="Nome" required>
-				</label>	
+				
 				
 				<label class="item item-input item-select">
-					<div class="input-label">Título:</div>
+					<input type="text" ng-model="form.user.name" size=20 placeholder="Nome" required>
 					<select ng-model="form.user.title_id" ng-options="title.id as title.name for title in titles"></select> 
 				</label>	
-				
 					
 				<label class="item item-input">
 					<input type="text" ng-model="form.user.email" size=30 placeholder="Email (seu login)" disabled>

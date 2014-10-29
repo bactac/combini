@@ -97,3 +97,22 @@ ion-content {
 .typeicon {
 	padding: 5px;
 }
+
+
+
+.right {
+	float: right;
+	display: inline;
+	padding-top: 10px;
+	padding-right: 10px;
+	color: #B2B2B2;
+}
+
+.button.sidemenu.button-clear.icon {
+	align: left;
+}
+
+.list > ion-item {
+	height: 40px;
+	padding: 0px;	
+}

@@ -17,26 +17,30 @@ app.controller("MainController", function($rootScope, $location, UserService, $i
         return UserService.isLoggedIn();
     };
 
-    $rootScope.logout = function() {
-        
+    $rootScope.logout = function() {        
+		$rootScope.toggleRight();
         $location.path('/login');
         return UserService.logout();
     };
 	
 	
 	$rootScope.showUser = function() {
+	
+		$rootScope.toggleRight();
 		$location.path('/showUser');
     };
 		
-	$rootScope.toggleLeft = function() {
-		$ionicSideMenuDelegate.toggleLeft();
+	$rootScope.toggleRight = function() {
+		$ionicSideMenuDelegate.toggleRight();
     };
 	
-	$rootScope.editProfile = function() {
+	$rootScope.editProfile = function() {		
+		$rootScope.toggleRight();
 		$location.path('/editProfile');
 	}
 	
 	$rootScope.gotoStore = function() {
+		$rootScope.toggleRight();
 		$location.path('/store');
 	}
 });
