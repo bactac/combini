@@ -9,12 +9,20 @@
 			Colocar a parte de mudar o avatar
 		-->
 		
-		<h1> Atualize seu cadastro AAAAAAAAAAAAAAA </h1>
+		<h1> Atualize seu cadastro</h1>
+		
+		
 		
 		<form ng-submit="sendForm()">	
 		
 			
 			<div class="list list-inset">
+				<center>
+					<div class="avatar">
+						<div><img src="assets/Avatares/batman-head.png"></div>
+						<div style="margin-top:-6px;"><img src="assets/Avatares/mario-body.png" ></div>
+					</div>
+				</center>
 				<label class="item item-input">
 					<input type="text" ng-model="form.user.name" size=20 placeholder="Nome" required>
 				</label>	
@@ -26,7 +34,7 @@
 				
 					
 				<label class="item item-input">
-					<input type="text" ng-model="form.user.email" size=30 placeholder="Email (seu login)" required>
+					<input type="text" ng-model="form.user.email" size=30 placeholder="Email (seu login)" disabled>
 				</label>
 				
 				<label class="item item-input">

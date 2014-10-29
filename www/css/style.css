@@ -82,6 +82,17 @@ ion-content {
 	text-align: center;
 	margin: 7px 0px 7px 0px;
 }
+.table_nopadding {
+	border-collapse: collapse;
+}
+
+.avatar{
+	display: inline-block;
+	text-align: center;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	
+}
 
 .typeicon {
 	padding: 5px;

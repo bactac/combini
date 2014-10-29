@@ -323,4 +323,8 @@ app.controller("showUserController", function($scope) {
 
 
 
+app.controller("editProfileController", function($scope) {
+
+});
+
 
