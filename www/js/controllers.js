@@ -19,7 +19,6 @@ app.controller("MainController", function($rootScope, $location, UserService, $i
 
     $rootScope.logout = function() {      
         UserService.logout();  
-        console.log(!$rootScope.isLoggedIn());
 		$rootScope.toggleRight();
         $location.path('/login');
     };
@@ -287,8 +286,24 @@ app.controller('CombinisController', function($scope, CombiniService, $ionicLoad
             alertXp();
 
     });
+
+    var createMarker = function(data) {
+        var marker = new google.maps.Marker({
+                position: new google.maps.LatLng(data.latitude,data.longitude),
+                map: $scope.map,
+                title: data.name,
+                icon: "./assets/48/" + data.type_id + ".png",
+                id: data.id
+                });
+                
+        google.maps.event.addListener(marker, 'click', function() {
+            $location.path('/showCombini/' + marker.id);
+        }); 
+
+        $scope.markers.push(marker);
+    }
 	
-	function initialize() {
+	var initialize = function() {
 		var myLatlng = new google.maps.LatLng(-23.5577678,-46.7299445);
         
         var mapOptions = {
@@ -304,9 +319,8 @@ app.controller('CombinisController', function($scope, CombiniService, $ionicLoad
 			overviewMapControl: false,
 			mapTypeId: google.maps.MapTypeId.ROADMAP
         };
-        var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+        $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
         		
-        $scope.map = map;
 		
 		$scope.loading = $ionicLoading;
 		$scope.loading.show({
@@ -319,12 +333,20 @@ app.controller('CombinisController', function($scope, CombiniService, $ionicLoad
 			$scope.position = pos.coords;
 			myLatlng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
 			$scope.map.setCenter(myLatlng);
+
+            CombiniService.index(pos.coords.latitude, pos.coords.longitude, 20).success(function(data){
+                $scope.markers = [];
+                for (var i = 0; i < data.length; i++) {
+                    createMarker(data[i]);
+
+                }
+            });
 			
 			
 			//Marker + infowindow + angularjs compiled ng-click
 			var marker = new google.maps.Marker({
 				position: myLatlng,
-				map: map,
+				map: $scope.map,
 				icon: "./assets/location_marker.png"
 				});			
 			/*var contentString = "<div><a ng-click='clickTest()'>Click me!</a></div>";
@@ -348,7 +370,7 @@ app.controller('CombinisController', function($scope, CombiniService, $ionicLoad
 	ionic.Platform.ready(initialize);
 	  
 	
-	$rootScope.showMarkers = function() {
+/*	$rootScope.showMarkers = function() {
 		for(i = 0; i < 10; i++){
 			var marker = new google.maps.Marker({
 					position: new google.maps.LatLng($scope.position.latitude + Math.random()/50-Math.random()/50,$scope.position.longitude + Math.random()/50-Math.random()/50),
@@ -359,10 +381,13 @@ app.controller('CombinisController', function($scope, CombiniService, $ionicLoad
 					
 			google.maps.event.addListener(marker, 'click', function() {
 				$location.path('/showCombini');
+                $scope.asdf= '1234';
 			});		
 		}
-	}
+	}*/
+
 	  /*
+    }
     $scope.centerOnMe = function() {
         if(!$scope.map) {
           return;
@@ -433,6 +458,62 @@ app.controller("storeController", function($scope) {
 });
 
 
-app.controller("showCombiniController", function($scope) {
+app.controller("showCombiniController", function($scope, $stateParams, CombiniService, UserService, NeighborhoodService) {
 
+    $scope.user = UserService.getUser();
+
+    $scope.form = {comment:""};
+
+
+    CombiniService.show($stateParams.id).success(function(data){
+        $scope.combini = data;
+
+        CombiniService.countLikes($stateParams.id).success(function(data) {
+            $scope.combini.likesCount = data;
+        });
+
+        CombiniService.liked($stateParams.id, $scope.user.id).success(function(data){
+            $scope.combini.liked = data;
+        });
+
+        CombiniService.showComments($stateParams.id).success(function(data) {
+            $scope.combini.comments = data;
+        });
+
+        NeighborhoodService.show($scope.combini.neighborhood_id).success(function(data) {
+            $scope.combini.neighborhood = data;
+        });
+
+        UserService.show($scope.combini.user_id).success(function(data) {
+            $scope.combini.user = data;
+        });
+    });
+
+    $scope.like = function(like) {
+        if (!Array.isArray($scope.combini.liked)) {
+            alert("vc jah deu like porra!");
+        } else {
+            CombiniService.like($stateParams.id, $scope.user.id, like).success(function(data){
+                $scope.combini.liked = like;
+                alert("Like Funcionado!");
+                CombiniService.countLikes($stateParams.id).success(function(data) {
+                    $scope.combini.likesCount = data;
+                });
+            }).error(function(data){
+                alert("Like ferrou");
+            });    
+        }
+        
+    };
+
+    $scope.sendComment = function() {
+        CombiniService.sendComment($stateParams.id, $scope.user.id, $scope.form.comment).success(function(data) {
+            alert("Comentado!");
+            CombiniService.showComments($stateParams.id).success(function(data) {
+                $scope.combini.comments = data;
+            });
+        }).error(function(data){
+            alert("Comment ferrou!");
+        });
+    };
 });

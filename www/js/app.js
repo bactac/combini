@@ -50,7 +50,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 	
 	$stateProvider.state('showCombini', {
     templateUrl: 'templates/showCombini.html',
-    url: '/showCombini',
+    url: '/showCombini/:id',
 	controller: 'showCombiniController'});
 	
 	
