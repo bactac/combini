@@ -6,32 +6,27 @@
 	<ion-content padding="true" scroll="false">
 
 	<div class="row">
-		<div class="col">			
-			<div class="row">
-				<div class="avatar">
-					<center>
-						<div><img ng-src="assets/Avatares/{{randomAvatar()}}-head.png"></div>
-						<div style="margin-top:-6px;"><img ng-src="assets/Avatares/{{randomAvatar()}}-body.png" ></div>
-					</center>
-				</div>
-			</div>
-			<div class="row">
-				<center>
-					{{combini.user.name + ', ' + combini.user.title}}
-				</center>
-			</div>				
-		</div>
-		
-		<div class="col">
-			<div class="row">
-				<div class="col"><img ng-src="./assets/48/{{combini.type_id}}.png"></div>
-				<div class="col">{{combini.name}}</div>
+		<div class="col col-25" style="text-align:center">	
+			<div class="avatar">
+					<div><img ng-src="assets/Avatares/1-head.png"></div>
+					<div style="margin-top:-6px;"><img ng-src="assets/Avatares/1-body.png" ></div>
+			</div>			
+			<br>
+			<div style="line-height: 80%">
+				<span class="combini-user-name">{{combini.user.name}},</span><br>
+				<span class="combini-user-title">{{combini.user.title}}</span>
 			</div>
 			
+		</div>
+		<div class="col col-10 bubble-left"></div>
+		<div class="col col-60 bubble-middle">
 			<div class="row">
-				{{combini.neighborhood.name}}
+				<div class="col col-75 combini-name">{{combini.name}}<br>
+					<span class="combini-neighborhood">em {{combini.neighborhood.name}}</span>
+				</div>
+				<div class="col combini-icon"><img ng-src="./assets/48/{{combini.type_id}}.png"></div>
+				
 			</div>
-					
 					
 			<div class="row">		
 				<i class="icon" ng-class="{ 'ion-ios7-star' : combini.quality_rank >= 1, 'ion-ios7-star-outline' : combini.quality_rank < 1 }" ></i>
@@ -41,38 +36,55 @@
 				<i class="icon" ng-class="{ 'ion-ios7-star' : combini.quality_rank >= 5, 'ion-ios7-star-outline' : combini.quality_rank < 5 }" ></i>
 			</div>
 			
-			<div class="row">
-				<div class="col"><button ng-click="like(true)" class="button icon ion-thumbsup">{{combini.likesCount.likes}}</button></div>
-				<div class="col"><button ng-click="like(false)" class="button icon ion-thumbsdown">{{combini.likesCount.dislikes}}</button></div>
+			<div class="row combini-likes">
+				<div class="col combini-likes"><button ng-click="like(true)"  class="button button-outline button-block button-balanced combini-like icon ion-thumbsup">&nbsp;&nbsp;{{combini.likesCount.likes}}</button></div>
+				<div class="col combini-likes"><button ng-click="like(false)" class="button button-outline button-block button-assertive combini-dislike icon ion-thumbsdown">&nbsp;&nbsp;{{combini.likesCount.dislikes}}</button></div>
 			</div>
 			
 		</div>
+		<div class="col col-10 bubble-right"></div>
 	</div>
 	
 	<div class="row">{{combini.comments.length}} comentários:</div>
+	
+	
 	<ion-scroll direction="y">
-		<div class="row" ng-repeat="comment in combini.comments">
-			<div class="col">
-				<div class="row"><img src="./assets/Avatares/{{randomAvatar()}}-head.png"></div>
-				<div class="row">{{comment.user_id}}</div>
+	
+		<div class="card">
+			<div class="item">
+				<form ng-submit="sendComment()">					
+					<div class="row">
+						<div class="col col-20">
+							<img src="assets/Avatares/1-head.png" style="width:100%">
+						</div>
+						<div class="col">
+							<textarea ng-model="form.comment" placeholder="Comentário!!!" ></textarea>
+						</div>
+						<div class="col-10" style="margin-right:10px;">
+							<button type="submit" class="button icon ion-paper-airplane"> </button>
+						</div>
+					</div>
+				</form>
 			</div>
-			<div class="col"> {{comment.message}} </div>
 		</div>
+	
+	
+	
+		<div class="card"  ng-repeat="comment in combini.comments">
+			<div class="item">
+				<div class="row">
+					<div class="col col-20">
+						<img src="./assets/Avatares/1-head.png" style="width:100%">
+						<br>
+						<!--{{comment.user_id}}-->
+					</div>
+					<div class="col"> {{comment.message}} </div>
+				</div>
+			</div>
+		</div>
+	
+	
+	
 	</ion-scroll>
-			
-	<div class="row">
-		<form ng-submit="sendComment()">
-		<div class="col col-20">
-			<div><img src="assets/Avatares/{{randomAvatar()}}-head.png"></div>
-		</div>
-		
-		<div class="col">
-			<textarea ng-model="form.comment" placeholder="Comentário!!!" ></textarea>
-		</div>
-		
-		<div class="col">
-			<button type="submit" class="button icon ion-chatbubbles"></button>
-		</div>
-	</div>
   </ion-content>
 </ion-view>

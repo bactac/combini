@@ -27,7 +27,7 @@ ion-content {
 
 	
 #newcombini {
-	background-color: #FFFFFF;
+	background-color: #F5F5F5;
 	font-size: 90px;
 	color: #7A7A7B;
 	text-align: center;
@@ -39,8 +39,8 @@ ion-content {
 	position: absolute;
 	bottom: 12px;
 	left: 12px;
-	box-shadow: 3px 3px 3px #DDDDDD inset,
-				-3px -3px 3px #DDDDDD inset;
+	box-shadow: 4px 4px 4px #FFFFFF inset,
+				-4px -4px 4px #B5B5B5 inset;
 	z-index: 99999;
 	
 	-moz-transform: scaleX(-1); 
@@ -50,12 +50,11 @@ ion-content {
 	filter: FlipH; 
 	-ms-filter: "FlipH";
 	
-	
 }
 	
 #alertcombini {
-	background-color: #FFFFFF;
-	font-size: 20px;
+	background-color: #F5F5F5;
+	font-size: 28px;
 	color: #7A7A7B;
 	text-align: center;
 	padding-top: 27px;
@@ -66,10 +65,15 @@ ion-content {
 	position: absolute;
 	bottom: 12px;
 	left: 12px;
-	box-shadow: 3px 3px 3px #DDDDDD inset,
-				-3px -3px 3px #DDDDDD inset;
+	box-shadow: -4px 4px 4px #FFFFFF inset,
+				4px -4px 4px #B5B5B5 inset;
 	z-index: 99999;
-	
+}
+
+#newcombini:active {
+	box-shadow: 4px 4px 4px #B5B5B5 inset;
+	padding-left: 7px;
+	padding-top: 33px;
 	
 }
 
@@ -79,7 +83,7 @@ ion-content {
 
 
 .ion-ios7-star-outline, .ion-ios7-star {
-	font-size: 50px;
+	font-size: 35px;
 	padding-right: 10px;
 	padding-left:  10px;
 }
@@ -166,3 +170,65 @@ ion-content {
 .star_show_combini {
 	font-size: 32px;
 }
+
+.bubble-left {	
+	background-image: url('/assets/Bubbles/1a.png');
+	background-repeat: no-repeat;
+	background-size:contain;
+	background-position:right;
+	padding-right: 0px;
+	height: 180px;
+}
+.bubble-middle {
+	background-image: url('/assets/Bubbles/1b.png');
+	background-size:contain;
+	background-repeat: repeat-x;
+	padding-right: 0px;
+	padding-left: 0px;
+	height: 180px;
+}
+
+.bubble-right {
+	padding-left: 0px;
+	background-image: url('/assets/Bubbles/1c.png');
+	background-size:contain;
+	background-repeat: no-repeat;
+	height: 180px;	
+}
+.combini-name {
+	padding-top: 5px;
+	font-size: 1.2em;
+	text-overflow: ellipsis;
+}
+
+.combini-user-name {
+	font-size: 0.9em;
+}
+.combini-user-title {
+	font-size: 0.7em;
+}
+
+.combini-icon {
+	float:right;
+}
+
+.combini-neighborhood {
+	font-size: 0.7em;
+	color: #AAAAAA;
+}
+
+.combini-likes {
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+.row.combini-likes {
+	margin-left: 7px;
+}
+
+
+
+
+
+
+

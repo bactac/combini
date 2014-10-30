@@ -187,7 +187,7 @@ app.controller("CombiniFormSendController", function($scope, $location, $statePa
 
     $scope.sendForm = function() {
         CombiniService.create($scope.form).success(function() {
-            alert("Combini enviado!");
+            //alert("Combini enviado!");
             $location.path('/combinis');
         }).error(function() {
             alert("Falha ao criar novo Combini...");
@@ -227,7 +227,7 @@ app.controller('CombinisController', function($scope, CombiniService, $ionicLoad
             var count = 1;
             var counter;
 
-            $scope.alert = "Ganhou " + (diffXp) + " Xp!";
+            $scope.alert = "+" + (diffXp) + " XP!";
 
             var countdown = function() {
                 if (count == 0) {
@@ -251,7 +251,7 @@ app.controller('CombinisController', function($scope, CombiniService, $ionicLoad
             var count = 1;
             var counter;
 
-            $scope.alert = "Ganhou " + (diffLvl) + " Lvl!";
+            $scope.alert = "+" + (diffLvl) + "Lvl!";
 
             var countdown = function() {
                 if (count == 0) {
@@ -273,7 +273,7 @@ app.controller('CombinisController', function($scope, CombiniService, $ionicLoad
             var count = 1;
             var counter;
 
-            $scope.alert = "Ganhou " + (diffGold) + " gold!";
+            $scope.alert = "+" + (diffGold) + " gold!";
 
             var countdown = function() {
                 if (count == 0) {
@@ -332,7 +332,8 @@ app.controller('CombinisController', function($scope, CombiniService, $ionicLoad
 			navigationControl: false,
 			disableDefaultUI: false,
 			overviewMapControl: false,
-			mapTypeId: google.maps.MapTypeId.ROADMAP
+			mapTypeId: google.maps.MapTypeId.ROADMAP,
+			styles: [{"stylers":[{"saturation":-100},{"gamma":1}]},{"elementType":"labels.text.stroke","stylers":[{"visibility":"off"}]},{"featureType":"poi.business","elementType":"labels.text","stylers":[{"visibility":"off"}]},{"featureType":"poi.business","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"poi.place_of_worship","elementType":"labels.text","stylers":[{"visibility":"off"}]},{"featureType":"poi.place_of_worship","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"geometry","stylers":[{"visibility":"simplified"}]},{"featureType":"water","stylers":[{"visibility":"on"},{"saturation":50},{"gamma":0},{"hue":"#50a5d1"}]},{"featureType":"administrative.neighborhood","elementType":"labels.text.fill","stylers":[{"color":"#333333"}]},{"featureType":"road.local","elementType":"labels.text","stylers":[{"weight":0.5},{"color":"#333333"}]},{"featureType":"transit.station","elementType":"labels.icon","stylers":[{"gamma":1},{"saturation":50}]}, {"featureType": "transit.station.bus","stylers": [{ "visibility": "off" }]}]
         };
         $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
         		
