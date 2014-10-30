@@ -516,4 +516,8 @@ app.controller("showCombiniController", function($scope, $stateParams, CombiniSe
             alert("Comment ferrou!");
         });
     };
+
+    $scope.randomAvatar = function() {
+        return Math.floor(Math.random()*8 + 1);
+    }
 });
