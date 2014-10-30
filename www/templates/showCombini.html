@@ -10,8 +10,8 @@
 			<div class="row">
 				<div class="avatar">
 					<center>
-						<div><img ng-src="assets/Avatares/{{randomAvatar()}}-head.png"></div>
-						<div style="margin-top:-6px;"><img ng-src="assets/Avatares/{{randomAvatar()}}-body.png" ></div>
+						<div><img ng-src="assets/Avatares/1-head.png"></div>
+						<div style="margin-top:-6px;"><img ng-src="assets/Avatares/1-body.png" ></div>
 					</center>
 				</div>
 			</div>
@@ -53,7 +53,7 @@
 	<ion-scroll direction="y">
 		<div class="row" ng-repeat="comment in combini.comments">
 			<div class="col">
-				<div class="row"><img src="./assets/Avatares/{{randomAvatar()}}-head.png"></div>
+				<div class="row"><img src="./assets/Avatares/1-head.png"></div>
 				<div class="row">{{comment.user_id}}</div>
 			</div>
 			<div class="col"> {{comment.message}} </div>
@@ -63,7 +63,7 @@
 	<div class="row">
 		<form ng-submit="sendComment()">
 		<div class="col col-20">
-			<div><img src="assets/Avatares/{{randomAvatar()}}-head.png"></div>
+			<div><img src="assets/Avatares/1-head.png"></div>
 		</div>
 		
 		<div class="col">
