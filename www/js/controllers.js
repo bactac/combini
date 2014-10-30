@@ -88,7 +88,7 @@ app.controller("LoginController", function($scope, $location, UserService, $ioni
 			$location.path('/combinis');
         }).error(function() {
 			$ionicLoading.hide();
-            alert("Login Fail");
+            alert("Foi mal chapa, não foi dessa vez que vc vai conseguir logar. Já conferiu usuário e senha?");
         });
     };
 
@@ -118,20 +118,19 @@ app.controller("SignupController", function($scope, $location, UserService, Titl
         $scope.titles = data;
         $scope.form.user.title_id = data[0].id;
     }).error(function(data) {
-        alert("Nao consegui puxar os titulos T_T");
+        //alert("Nao consegui puxar os titulos T_T");
     });
 
     $scope.sendForm = function() {
         if ($scope.form.user.password == $scope.form.user.password2) {
             UserService.create($scope.form).success(function() {
-                alert("Conta criada!");
                 $location.path('/combini');
             }).error(function() {
-                alert("Criacao da conta falhou");
+                alert("Não deu pra te cadastrar, amigo. Vê se vc preencheu tudo certo");
             });    
         }
         else {
-            alert("Passwords nao batem!");
+            alert("As senhas são diferentes!");
         }
         
     };
@@ -153,7 +152,7 @@ app.controller("CombiniFormSelectController", function($scope, $stateParams, Typ
                 $scope.types[data[0].typegroup_id] = data
             });
             request.error(function(data) {
-                alert("ERRO!");
+                //alert("ERRO!");
             });
         }
     });
@@ -431,7 +430,7 @@ app.controller('CombinisController', function($scope, CombiniService, $ionicLoad
             $location.path('/combiniFormSelect/' + $scope.position.latitude + '/' + $scope.position.longitude);    
         }
         else {
-            alert("Nao temos sua posicao ainda!");
+            alert("Não deu pra te localizar. Tenta ligar o GPS");
         }
 		
 	};
@@ -453,14 +452,14 @@ app.controller("editProfileController", function($scope, $location, UserService)
     $scope.sendForm = function() {
         if ($scope.form.user.password == $scope.form.user.password2) {
             UserService.update($scope.form).success(function() {
-                alert("Updato!");
+                //alert("Updato!");
                 $location.path('/combinis');
             }).error(function() {
-                alert("Update falhou");
+                alert("Não deu pra atualizar..");
             });    
         }
         else {
-            alert("Passwords nao batem!");
+            alert("As senhas não batem!");
         }
         
     };
@@ -512,16 +511,16 @@ app.controller("showCombiniController", function($scope, $stateParams, CombiniSe
 
     $scope.like = function(like) {
         if (!Array.isArray($scope.combini.liked)) {
-            alert("vc jah deu like porra!");
+            //alert("vc jah deu like porra!");
         } else {
             CombiniService.like($stateParams.id, $scope.user.id, like).success(function(data){
                 $scope.combini.liked = like;
-                alert("Like Funcionado!");
+                //alert("Like Funcionado!");
                 CombiniService.countLikes($stateParams.id).success(function(data) {
                     $scope.combini.likesCount = data;
                 });
             }).error(function(data){
-                alert("Like ferrou");
+                //alert("Like ferrou");
             });    
         }
         
@@ -529,12 +528,12 @@ app.controller("showCombiniController", function($scope, $stateParams, CombiniSe
 
     $scope.sendComment = function() {
         CombiniService.sendComment($stateParams.id, $scope.user.id, $scope.form.comment).success(function(data) {
-            alert("Comentado!");
+            //alert("Comentado!");
             CombiniService.showComments($stateParams.id).success(function(data) {
                 $scope.combini.comments = data;
             });
         }).error(function(data){
-            alert("Comment ferrou!");
+            //alert("Comment ferrou!");
         });
     };
 
