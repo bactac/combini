@@ -39,10 +39,15 @@ app.controller("MainController", function($rootScope, $location, UserService, $i
 		$location.path('/editProfile');
 	};
 
-	$rootScope.gotoStore = function() {
-		$rootScope.toggleRight();
-		$location.path('/store');
-	};
+	$rootScope.goStore = function() {
+        $rootScope.toggleRight();
+        $location.path('/store');
+    };
+
+    $rootScope.goInventory = function() {
+        $rootScope.toggleRight();
+        $location.path('/inventory');
+    };
 
 
     if (!$rootScope.isLoggedIn()) {
@@ -465,6 +470,10 @@ app.controller("editProfileController", function($scope, $location, UserService)
 
 app.controller("storeController", function($scope) {
 
+});
+
+app.controller("inventoryController", function($scope, UserService) {
+    $scope.user = UserService.getUser();
 });
 
 

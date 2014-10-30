@@ -54,6 +54,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
 	controller: 'showCombiniController'});
 	
 	
+  $stateProvider.state('inventory', {
+    templateUrl: 'templates/inventory.html',
+    url: '/inventory',
+  controller: 'inventoryController'});
 	
     $urlRouterProvider.otherwise('combinis');
 });
