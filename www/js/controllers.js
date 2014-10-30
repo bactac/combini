@@ -88,7 +88,7 @@ app.controller("LoginController", function($scope, $location, UserService, $ioni
 			$location.path('/combinis');
         }).error(function() {
 			$ionicLoading.hide();
-            alert("Login Fail");
+            alert("Foi mal chapa, não foi dessa vez que vc vai conseguir logar. Já conferiu usuário e senha?");
         });
     };
 
@@ -118,20 +118,19 @@ app.controller("SignupController", function($scope, $location, UserService, Titl
         $scope.titles = data;
         $scope.form.user.title_id = data[0].id;
     }).error(function(data) {
-        alert("Nao consegui puxar os titulos T_T");
+        //alert("Nao consegui puxar os titulos T_T");
     });
 
     $scope.sendForm = function() {
         if ($scope.form.user.password == $scope.form.user.password2) {
             UserService.create($scope.form).success(function() {
-                alert("Conta criada!");
                 $location.path('/combini');
             }).error(function() {
-                alert("Criacao da conta falhou");
+                alert("Não deu pra te cadastrar, amigo. Vê se vc preencheu tudo certo");
             });    
         }
         else {
-            alert("Passwords nao batem!");
+            alert("As senhas são diferentes!");
         }
         
     };
@@ -153,7 +152,7 @@ app.controller("CombiniFormSelectController", function($scope, $stateParams, Typ
                 $scope.types[data[0].typegroup_id] = data
             });
             request.error(function(data) {
-                alert("ERRO!");
+                //alert("ERRO!");
             });
         }
     });
@@ -192,7 +191,7 @@ app.controller("CombiniFormSendController", function($scope, $location, $statePa
 
     $scope.sendForm = function() {
         CombiniService.create($scope.form).success(function() {
-            alert("Combini enviado!");
+            //alert("Combini enviado!");
             $location.path('/combinis');
         }).error(function() {
             alert("Falha ao criar novo Combini...");
@@ -221,6 +220,7 @@ app.controller('CombinisController', function($scope, CombiniService, $ionicLoad
     };
 
     var user = UserService.getUser();
+	$scope.user = user;
 
     UserService.show(user.id).success(function(data) {
 
@@ -232,7 +232,7 @@ app.controller('CombinisController', function($scope, CombiniService, $ionicLoad
             var count = 1;
             var counter;
 
-            $scope.alert = "Ganhou " + (diffXp) + " Xp!";
+            $scope.alert = "+" + (diffXp) + " XP!";
 
             var countdown = function() {
                 if (count == 0) {
@@ -256,7 +256,7 @@ app.controller('CombinisController', function($scope, CombiniService, $ionicLoad
             var count = 1;
             var counter;
 
-            $scope.alert = "Ganhou " + (diffLvl) + " Lvl!";
+            $scope.alert = "+" + (diffLvl) + "Lvl!";
 
             var countdown = function() {
                 if (count == 0) {
@@ -278,7 +278,7 @@ app.controller('CombinisController', function($scope, CombiniService, $ionicLoad
             var count = 1;
             var counter;
 
-            $scope.alert = "Ganhou " + (diffGold) + " gold!";
+            $scope.alert = "+" + (diffGold) + " gold!";
 
             var countdown = function() {
                 if (count == 0) {
@@ -337,7 +337,8 @@ app.controller('CombinisController', function($scope, CombiniService, $ionicLoad
 			navigationControl: false,
 			disableDefaultUI: false,
 			overviewMapControl: false,
-			mapTypeId: google.maps.MapTypeId.ROADMAP
+			mapTypeId: google.maps.MapTypeId.ROADMAP,
+			styles: [{"stylers":[{"saturation":-100},{"gamma":1}]},{"elementType":"labels.text.stroke","stylers":[{"visibility":"off"}]},{"featureType":"poi.business","elementType":"labels.text","stylers":[{"visibility":"off"}]},{"featureType":"poi.business","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"poi.place_of_worship","elementType":"labels.text","stylers":[{"visibility":"off"}]},{"featureType":"poi.place_of_worship","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"geometry","stylers":[{"visibility":"simplified"}]},{"featureType":"water","stylers":[{"visibility":"on"},{"saturation":50},{"gamma":0},{"hue":"#50a5d1"}]},{"featureType":"administrative.neighborhood","elementType":"labels.text.fill","stylers":[{"color":"#333333"}]},{"featureType":"road.local","elementType":"labels.text","stylers":[{"weight":0.5},{"color":"#333333"}]},{"featureType":"transit.station","elementType":"labels.icon","stylers":[{"gamma":1},{"saturation":50}]}, {"featureType": "transit.station.bus","stylers": [{ "visibility": "off" }]}]
         };
         $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
         		
@@ -362,7 +363,8 @@ app.controller('CombinisController', function($scope, CombiniService, $ionicLoad
 			var marker = new google.maps.Marker({
 				position: myLatlng,
 				map: $scope.map,
-				icon: "./assets/location_marker.png"
+				icon: "./assets/Avatares/7-head.png",
+				zIndex: 1337
 				});			
 			/*var contentString = "<div><a ng-click='clickTest()'>Click me!</a></div>";
 			var compiled = $compile(contentString)($scope);
@@ -430,7 +432,7 @@ app.controller('CombinisController', function($scope, CombiniService, $ionicLoad
             $location.path('/combiniFormSelect/' + $scope.position.latitude + '/' + $scope.position.longitude);    
         }
         else {
-            alert("Nao temos sua posicao ainda!");
+            alert("Não deu pra te localizar. Tenta ligar o GPS");
         }
 		
 	};
@@ -452,14 +454,14 @@ app.controller("editProfileController", function($scope, $location, UserService)
     $scope.sendForm = function() {
         if ($scope.form.user.password == $scope.form.user.password2) {
             UserService.update($scope.form).success(function() {
-                alert("Updato!");
+                //alert("Updato!");
                 $location.path('/combinis');
             }).error(function() {
-                alert("Update falhou");
+                alert("Não deu pra atualizar..");
             });    
         }
         else {
-            alert("Passwords nao batem!");
+            alert("As senhas não batem!");
         }
         
     };
@@ -511,16 +513,16 @@ app.controller("showCombiniController", function($scope, $stateParams, CombiniSe
 
     $scope.like = function(like) {
         if (!Array.isArray($scope.combini.liked)) {
-            alert("vc jah deu like porra!");
+            //alert("vc jah deu like porra!");
         } else {
             CombiniService.like($stateParams.id, $scope.user.id, like).success(function(data){
                 $scope.combini.liked = like;
-                alert("Like Funcionado!");
+                //alert("Like Funcionado!");
                 CombiniService.countLikes($stateParams.id).success(function(data) {
                     $scope.combini.likesCount = data;
                 });
             }).error(function(data){
-                alert("Like ferrou");
+                //alert("Like ferrou");
             });    
         }
         
@@ -528,12 +530,12 @@ app.controller("showCombiniController", function($scope, $stateParams, CombiniSe
 
     $scope.sendComment = function() {
         CombiniService.sendComment($stateParams.id, $scope.user.id, $scope.form.comment).success(function(data) {
-            alert("Comentado!");
+            //alert("Comentado!");
             CombiniService.showComments($stateParams.id).success(function(data) {
                 $scope.combini.comments = data;
             });
         }).error(function(data){
-            alert("Comment ferrou!");
+            //alert("Comment ferrou!");
         });
     };
 
