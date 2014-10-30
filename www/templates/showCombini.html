@@ -47,9 +47,19 @@
 	
 	<div class="row">{{combini.comments.length}} comentários:</div>
 	
-	
 	<ion-scroll direction="y">
-	
+		<div class="card"  ng-repeat="comment in combini.comments">
+			<div class="item">
+				<div class="row">
+					<div class="col col-20">
+						<img src="./assets/Avatares/1-head.png" style="width:100%">
+						<br>
+						<!--{{comment.user_id}}-->
+					</div>
+					<div class="col"> {{comment.message}} </div>
+				</div>
+			</div>
+		</div>
 		<div class="card">
 			<div class="item">
 				<form ng-submit="sendComment()">					
@@ -67,24 +77,6 @@
 				</form>
 			</div>
 		</div>
-	
-	
-	
-		<div class="card"  ng-repeat="comment in combini.comments">
-			<div class="item">
-				<div class="row">
-					<div class="col col-20">
-						<img src="./assets/Avatares/1-head.png" style="width:100%">
-						<br>
-						<!--{{comment.user_id}}-->
-					</div>
-					<div class="col"> {{comment.message}} </div>
-				</div>
-			</div>
-		</div>
-	
-	
-	
 	</ion-scroll>
   </ion-content>
 </ion-view>

@@ -362,7 +362,7 @@ app.controller('CombinisController', function($scope, CombiniService, $ionicLoad
 			var marker = new google.maps.Marker({
 				position: myLatlng,
 				map: $scope.map,
-				icon: "./assets/location_marker.png"
+				icon: "./assets/Avatares/7-head.png"
 				});			
 			/*var contentString = "<div><a ng-click='clickTest()'>Click me!</a></div>";
 			var compiled = $compile(contentString)($scope);
