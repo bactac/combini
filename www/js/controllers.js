@@ -180,7 +180,7 @@ app.controller("CombiniFormSendController", function($scope, $location, $statePa
     $scope.sendForm = function() {
         CombiniService.create($scope.form).success(function() {
             alert("Combini enviado!");
-            $location.path('/combinis.html');
+            $location.path('/combinis');
         }).error(function() {
             alert("Falha ao criar novo Combini...");
         });
@@ -196,7 +196,7 @@ app.controller("CombiniFormSendController", function($scope, $location, $statePa
 /**
 		COMBINIS CONTROLLER
 **/
-app.controller('CombinisController', function($scope, CombiniService, $ionicLoading, $compile, $cordovaGeolocation, $location, UserService, $rootScope, $timeout) {
+app.controller('CombinisController', function($scope, CombiniService, $ionicLoading, $compile, $cordovaGeolocation, $location, UserService, $timeout) {
 
 	$scope.form = { latitude : "", longitude : "", limit : ""};
     $scope.combinis = [];
@@ -216,7 +216,7 @@ app.controller('CombinisController', function($scope, CombiniService, $ionicLoad
         var diffGold = data.gold - user.gold;
 
         var alertXp = function() {
-            var count = 3;
+            var count = 1;
             var counter;
 
             $scope.alert = "Ganhou " + (diffXp) + " Xp!";
@@ -240,7 +240,7 @@ app.controller('CombinisController', function($scope, CombiniService, $ionicLoad
             countdown();
         }
         var alertLvl = function() {
-            var count = 3;
+            var count = 1;
             var counter;
 
             $scope.alert = "Ganhou " + (diffLvl) + " Lvl!";
@@ -262,7 +262,7 @@ app.controller('CombinisController', function($scope, CombiniService, $ionicLoad
             countdown();
         }
         var alertGold = function() {
-            var count = 3;
+            var count = 1;
             var counter;
 
             $scope.alert = "Ganhou " + (diffGold) + " gold!";

@@ -52,6 +52,26 @@ ion-content {
 	
 	
 }
+	
+#alertcombini {
+	background-color: #FFFFFF;
+	font-size: 20px;
+	color: #7A7A7B;
+	text-align: center;
+	padding-top: 27px;
+	padding-right: 4px;
+	width: 145px;
+	height: 145px;
+	border-radius: 50%;
+	position: absolute;
+	bottom: 12px;
+	left: 12px;
+	box-shadow: 3px 3px 3px #DDDDDD inset,
+				-3px -3px 3px #DDDDDD inset;
+	z-index: 99999;
+	
+	
+}
 
 .typelabel {
 	text-align: right;
