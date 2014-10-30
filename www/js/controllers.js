@@ -65,16 +65,24 @@ app.controller("MainController", function($rootScope, $location, UserService, $i
 
 
 
-app.controller("LoginController", function($scope, $location, UserService) {
+app.controller("LoginController", function($scope, $location, UserService, $ionicLoading) {
     $scope.credentials = { user : "" };
     $scope.credentials.user = { email:"asdf@asdf.com", password : "asdf" };
 
     $scope.login = function() {
+	
+		$ionicLoading.show({
+			template: "<i class='icon ion-loading-c'></i>",
+			content: 'Getting current location...',
+			showBackdrop: false
+        });
 		
 		UserService.login($scope.credentials).success(function() {
             //alert("Login Win!");
+			$ionicLoading.hide();
 			$location.path('/combinis');
         }).error(function() {
+			$ionicLoading.hide();
             alert("Login Fail");
         });
     };
@@ -297,13 +305,20 @@ app.controller('CombinisController', function($scope, CombiniService, $ionicLoad
                 });
                 
         google.maps.event.addListener(marker, 'click', function() {
-            $location.path('/showCombini/' + marker.id);
+            location.href = '/#/showCombini/' + marker.id;
         }); 
 
         $scope.markers.push(marker);
     }
 	
 	var initialize = function() {
+	
+		$ionicLoading.show({
+			template: "<i class='icon ion-loading-c'></i>",
+			content: 'Getting current location...',
+			showBackdrop: false
+        });
+		
 		var myLatlng = new google.maps.LatLng(-23.5577678,-46.7299445);
         
         var mapOptions = {
@@ -321,14 +336,10 @@ app.controller('CombinisController', function($scope, CombiniService, $ionicLoad
         };
         $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
         		
-		
-		$scope.loading = $ionicLoading;
-		$scope.loading.show({
-          content: 'Getting current location...',
-          showBackdrop: false
-        });
-		
 		$cordovaGeolocation.getCurrentPosition().then(function(pos) {
+		
+			$ionicLoading.hide();
+			
 			//adicionei
 			$scope.position = pos.coords;
 			myLatlng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
@@ -341,7 +352,6 @@ app.controller('CombinisController', function($scope, CombiniService, $ionicLoad
 
                 }
             });
-			
 			
 			//Marker + infowindow + angularjs compiled ng-click
 			var marker = new google.maps.Marker({
@@ -359,14 +369,13 @@ app.controller('CombinisController', function($scope, CombiniService, $ionicLoad
 			  //infowindow.open(map,marker);
 			});		
 			*/
-			
         }, function(error) {
 			alert('Unable to get location: ' + error.message);
+			$ionicLoading.hide();
         });
-		$scope.loading.hide();
-
 		
 	}
+	
 	ionic.Platform.ready(initialize);
 	  
 	
@@ -466,6 +475,7 @@ app.controller("showCombiniController", function($scope, $stateParams, CombiniSe
 
 
     CombiniService.show($stateParams.id).success(function(data){
+	
         $scope.combini = data;
 
         CombiniService.countLikes($stateParams.id).success(function(data) {
@@ -487,6 +497,7 @@ app.controller("showCombiniController", function($scope, $stateParams, CombiniSe
         UserService.show($scope.combini.user_id).success(function(data) {
             $scope.combini.user = data;
         });
+		
     });
 
     $scope.like = function(like) {
