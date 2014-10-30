@@ -177,7 +177,7 @@ ion-content {
 	background-size:contain;
 	background-position:right;
 	padding-right: 0px;
-	height: 180px;
+	height: 190px;
 }
 .bubble-middle {
 	background-image: url('/assets/Bubbles/1b.png');
@@ -185,7 +185,7 @@ ion-content {
 	background-repeat: repeat-x;
 	padding-right: 0px;
 	padding-left: 0px;
-	height: 180px;
+	height: 190px;
 }
 
 .bubble-right {
@@ -193,7 +193,7 @@ ion-content {
 	background-image: url('/assets/Bubbles/1c.png');
 	background-size:contain;
 	background-repeat: no-repeat;
-	height: 180px;	
+	height: 190px;	
 }
 .combini-name {
 	padding-top: 5px;

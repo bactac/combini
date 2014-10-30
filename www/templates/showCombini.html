@@ -49,14 +49,14 @@
 	
 	<ion-scroll direction="y">
 		<div class="card"  ng-repeat="comment in combini.comments">
-			<div class="item">
+			<div class="item item-text-wrap">
 				<div class="row">
 					<div class="col col-20">
 						<img src="./assets/Avatares/1-head.png" style="width:100%">
 						<br>
 						<!--{{comment.user_id}}-->
 					</div>
-					<div class="col"> {{comment.message}} </div>
+					<div class="col"><p>{{comment.message}}</p></div>
 				</div>
 			</div>
 		</div>
