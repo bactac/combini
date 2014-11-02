@@ -101,7 +101,7 @@ ion-content {
 .sidebarlogo {
 	width: 100%;
 	height: 100px;
-	background-image: url('/assets/logo.png');
+	background-image: url('./assets/logo.png');
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: contain;
@@ -172,7 +172,7 @@ ion-content {
 }
 
 .bubble-left {	
-	background-image: url('/assets/Bubbles/1a.png');
+	background-image: url('./assets/Bubbles/1a.png');
 	background-repeat: no-repeat;
 	background-size:contain;
 	background-position:right;
@@ -180,7 +180,7 @@ ion-content {
 	height: 190px;
 }
 .bubble-middle {
-	background-image: url('/assets/Bubbles/1b.png');
+	background-image: url('./assets/Bubbles/1b.png');
 	background-size:contain;
 	background-repeat: repeat-x;
 	padding-right: 0px;
@@ -190,7 +190,7 @@ ion-content {
 
 .bubble-right {
 	padding-left: 0px;
-	background-image: url('/assets/Bubbles/1c.png');
+	background-image: url('./assets/Bubbles/1c.png');
 	background-size:contain;
 	background-repeat: no-repeat;
 	height: 190px;	
