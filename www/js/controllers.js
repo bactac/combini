@@ -310,7 +310,7 @@ app.controller('CombinisController', function($scope, CombiniService, $ionicLoad
                 });
                 
         google.maps.event.addListener(marker, 'click', function() {
-            location.href = '/#/showCombini/' + marker.id;
+            location.href = '#/showCombini/' + marker.id;
         }); 
 
         $scope.markers.push(marker);
