@@ -195,6 +195,34 @@ ion-content {
 	background-repeat: no-repeat;
 	height: 190px;	
 }
+
+.bubble-motto-left {	
+	background-image: url('../assets/Bubbles/1as.png');
+	background-repeat: no-repeat;
+	background-size:contain;
+	background-position:right;
+	padding-right: 0px;
+	height: 50px;
+}
+.bubble-motto-middle {
+	background-image: url('../assets/Bubbles/1bs.png');
+	background-size:contain;
+	background-repeat: repeat-x;
+	padding-right: 0px;
+	padding-left: 0px;
+	height: 50px;
+	vertical-align: center;
+	text-align: justify;
+	display: table-cell;
+}
+
+.bubble-motto-right {
+	padding-left: 0px;
+	background-image: url('../assets/Bubbles/1cs.png');
+	background-size:contain;
+	background-repeat: no-repeat;
+	height: 50px;	
+}
 .combini-name {
 	padding-top: 5px;
 	font-size: 1.2em;

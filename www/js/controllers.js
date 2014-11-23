@@ -25,8 +25,6 @@ app.controller("MainController", function($rootScope, $location, UserService, $i
 	
 	
 	$rootScope.showUser = function() {
-	
-		$rootScope.toggleRight();
 		$location.path('/showUser');
     };
 		
@@ -363,7 +361,7 @@ app.controller('CombinisController', function($scope, CombiniService, $ionicLoad
 			var marker = new google.maps.Marker({
 				position: myLatlng,
 				map: $scope.map,
-				icon: "./assets/Avatares/7-head.png",
+				//icon: "./assets/Avatares/7-head.png",
 				zIndex: 1337
 				});			
 			/*var contentString = "<div><a ng-click='clickTest()'>Click me!</a></div>";
