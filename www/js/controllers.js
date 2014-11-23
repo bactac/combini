@@ -51,6 +51,10 @@ app.controller("MainController", function($rootScope, $location, UserService, $i
     if (!$rootScope.isLoggedIn()) {
         $location.path('/login');
     }
+
+    else {
+        $rootScope.user = UserService.getUser();
+    }
     
 });
 
@@ -68,7 +72,7 @@ app.controller("MainController", function($rootScope, $location, UserService, $i
 
 
 
-app.controller("LoginController", function($scope, $location, UserService, $ionicLoading) {
+app.controller("LoginController", function($scope, $rootScope, $location, UserService, $ionicLoading) {
     $scope.credentials = { user : "" };
     $scope.credentials.user = { email:"asdf@asdf.com", password : "asdf" };
 
@@ -83,6 +87,7 @@ app.controller("LoginController", function($scope, $location, UserService, $ioni
 		UserService.login($scope.credentials).success(function() {
             //alert("Login Win!");
 			$ionicLoading.hide();
+            $rootScope.user = getUser();
 			$location.path('/combinis');
         }).error(function() {
 			$ionicLoading.hide();
@@ -467,12 +472,54 @@ app.controller("editProfileController", function($scope, $location, UserService)
 
 
 
-app.controller("storeController", function($scope) {
-
+app.controller("storeController", function($scope, $ionicPopup) {
+    $scope.buy = function(id) {
+        var confirmPopup = $ionicPopup.confirm({
+            title: 'Item #' + id,
+            template: 'Tem certeza que quer comprar?'
+        });
+        confirmPopup.then(function(res) {
+            if(res) {
+                console.log('You are sure');
+            } else {
+                console.log('You are not sure');
+            }
+        });
+    }
+    
 });
 
-app.controller("inventoryController", function($scope, UserService) {
-    $scope.user = UserService.getUser();
+app.controller("inventoryController", function($scope, $rootScope, UserService, TitleService) {
+    $scope.user = $rootScope.user;
+
+    TitleService.index().success(function(data) {
+        $scope.titles = data;
+    });
+
+    $scope.onTitleChange = function() {
+        for (var i = 0; i < $scope.titles.length; i++) {
+            if ($scope.user.title_id == $scope.titles[i].id)
+                $scope.user.title = $scope.titles[i].name;
+        }
+        $rootScope.user.title_id = $scope.user.title_id;
+        $rootScope.user.title = $scope.user.title;
+        UserService.updateMyUser($scope.user);
+        UserService.update({user:$scope.user}).success(function(data) {
+            alert('success');
+        });
+    };
+
+    $scope.setHead = function(id) {
+        $scope.user.head = id;
+        $rootScope.user.head = id;
+        UserService.updateMyUser($scope.user);
+    };
+
+    $scope.setBody = function(id) {
+        $scope.user.body = id;
+        $rootScope.user.body = id;
+        UserService.updateMyUser($scope.user);
+    };
 });
 
 

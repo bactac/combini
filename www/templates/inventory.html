@@ -9,8 +9,8 @@
 		<div class="col">		
 			<div class="avatar">
 				<center>
-					<div><img ng-src="./assets/Avatares/1-head.png"></div>
-					<div style="margin-top:-6px;"><img ng-src="./assets/Avatares/1-body.png" ></div>
+					<div><img ng-src="./assets/Avatares/{{user.head}}-head.png"></div>
+					<div style="margin-top:-6px;"><img ng-src="./assets/Avatares/{{user.body}}-body.png" ></div>
 				</center>
 			</div>
 		</div>		
@@ -18,14 +18,8 @@
 			<center>
 				<h2>
 					{{user.name}}, 
-					<select>
-						<option value=1 selected>o magnata</option>
-						<option value=2 >o caipira</option>
-						<option value=3 >o noob</option>
-						<option value=4 >o jedi</option>
-						<option value=5 >o SSJ</option>
-						<option value=6 >o Batman</option>	
-					</select>
+					<select ng-model="user.title_id" ng-options="title.id as title.name for title in titles" ng-change="onTitleChange(title.id, title.name)">
+                    </select>
 				</h2>
 			</center>		
 		</div>
@@ -34,7 +28,7 @@
 	<div class="row"><div class="col"><center><h3>Cabecas!</h3></center></div></div>
 	<ion-scroll direction="x" >
 		<div class="row" style="width:960px; background-color:#ffffff" >
-			<div class="col">
+			<div class="col" ng-click="setHead(1)" ng-class="{ selected: user.head == 1}">
 					<div class="row">
 						<div class="col"><center><img src="./assets/Avatares/1-head.png"></center></div>
 					</div>
@@ -44,7 +38,7 @@
 				</center>
 			</div>
 
-			<div class="col">
+			<div class="col" ng-click="setHead(2)" ng-class="{ selected: user.head == 2}">
 					<div class="row">
 						<div class="col"><center><img src="./assets/Avatares/2-head.png"></center></div>
 					</div>
@@ -53,7 +47,7 @@
 					</div>
 				</center>
 			</div>
-			<div class="col">
+			<div class="col" ng-click="setHead(3)" ng-class="{ selected: user.head == 3}">
 					<div class="row">
 						<div class="col"><center><img src="./assets/Avatares/3-head.png"></center></div>
 					</div>
@@ -62,7 +56,7 @@
 					</div>
 				</center>
 			</div>
-			<div class="col">
+			<div class="col" ng-click="setHead(4)" ng-class="{ selected: user.head == 4}">
 					<div class="row">
 						<div class="col"><center><img src="./assets/Avatares/4-head.png"></center></div>
 					</div>
@@ -71,7 +65,7 @@
 					</div>
 				</center>
 			</div>
-			<div class="col">
+			<div class="col" ng-click="setHead(5)" ng-class="{ selected: user.head == 5}">
 					<div class="row">
 						<div class="col"><center><img src="./assets/Avatares/5-head.png"></center></div>
 					</div>
@@ -80,7 +74,7 @@
 					</div>
 				</center>
 			</div>
-			<div class="col">
+			<div class="col" ng-click="setHead(6)" ng-class="{ selected: user.head == 6}">
 					<div class="row">
 						<div class="col"><center><img src="./assets/Avatares/6-head.png"></center></div>
 					</div>
@@ -89,7 +83,7 @@
 					</div>
 				</center>
 			</div>
-			<div class="col">
+			<div class="col" ng-click="setHead(7)" ng-class="{ selected: user.head == 7}">
 					<div class="row">
 						<div class="col"><center><img src="./assets/Avatares/7-head.png"></center></div>
 					</div>
@@ -98,7 +92,7 @@
 					</div>
 				</center>
 			</div>
-			<div class="col">
+			<div class="col" ng-click="setHead(8)" ng-class="{ selected: user.head == 8}">
 					<div class="row">
 						<div class="col"><center><img src="./assets/Avatares/8-head.png"></center></div>
 					</div>
@@ -114,7 +108,7 @@
 	<div class="row"><div class="col"><center><h3>Corpos!</h3></center></div></div>
 	<ion-scroll direction="x" >
 		<div class="row" style="width:960px; background-color:#ffffff" >
-			<div class="col">
+			<div class="col" ng-click="setBody(1)" ng-class="{ selected: user.body == 1}">
 					<div class="row">
 						<div class="col"><center><img src="./assets/Avatares/1-body.png"></center></div>
 					</div>
@@ -124,7 +118,7 @@
 				</center>
 			</div>
 
-			<div class="col">
+			<div class="col" ng-click="setBody(2)" ng-class="{ selected: user.body == 2}">
 					<div class="row">
 						<div class="col"><center><img src="./assets/Avatares/2-body.png"></center></div>
 					</div>
@@ -133,7 +127,7 @@
 					</div>
 				</center>
 			</div>
-			<div class="col">
+			<div class="col" ng-click="setBody(3)" ng-class="{ selected: user.body == 3}">
 					<div class="row">
 						<div class="col"><center><img src="./assets/Avatares/3-body.png"></center></div>
 					</div>
@@ -142,7 +136,7 @@
 					</div>
 				</center>
 			</div>
-			<div class="col">
+			<div class="col" ng-click="setBody(4)" ng-class="{ selected: user.body == 4}">
 					<div class="row">
 						<div class="col"><center><img src="./assets/Avatares/4-body.png"></center></div>
 					</div>
@@ -151,7 +145,7 @@
 					</div>
 				</center>
 			</div>
-			<div class="col">
+			<div class="col" ng-click="setBody(5)" ng-class="{ selected: user.body == 5}">
 					<div class="row">
 						<div class="col"><center><img src="./assets/Avatares/5-body.png"></center></div>
 					</div>
@@ -160,7 +154,7 @@
 					</div>
 				</center>
 			</div>
-			<div class="col">
+			<div class="col" ng-click="setBody(6)" ng-class="{ selected: user.body == 6}">
 					<div class="row">
 						<div class="col"><center><img src="./assets/Avatares/6-body.png"></center></div>
 					</div>
@@ -169,21 +163,21 @@
 					</div>
 				</center>
 			</div>
-			<div class="col">
+			<div class="col" ng-click="setBody(7)" ng-class="{ selected: user.body == 7}">
 					<div class="row">
 						<div class="col"><center><img src="./assets/Avatares/7-body.png"></center></div>
 					</div>
 					<div class="row">
-						<div class="col"><center>Chomon!!</center></div>
+						<div class="col"><center>Steve!</center></div>
 					</div>
 				</center>
 			</div>
-			<div class="col">
+			<div class="col" ng-click="setBody(8)" ng-class="{ selected: user.body == 8}">
 					<div class="row">
 						<div class="col"><center><img src="./assets/Avatares/8-body.png"></center></div>
 					</div>
 					<div class="row">
-						<div class="col"><center>Steve!</center></div>
+						<div class="col"><center>Oh Canada!</center></div>
 					</div>
 				</center>
 			</div>

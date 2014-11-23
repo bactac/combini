@@ -259,3 +259,8 @@ ion-content {
 	font-size: 10px;
 	line-height: 120%;
 }
+
+.selected {
+	border: 2px solid;
+	background-color: #AAA;
+}
