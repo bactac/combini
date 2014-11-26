@@ -87,7 +87,7 @@ app.controller("LoginController", function($scope, $rootScope, $location, UserSe
 		UserService.login($scope.credentials).success(function() {
             //alert("Login Win!");
 			$ionicLoading.hide();
-            $rootScope.user = getUser();
+            $rootScope.user = UserService.getUser();
 			$location.path('/combinis');
         }).error(function() {
 			$ionicLoading.hide();
