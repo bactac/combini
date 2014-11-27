@@ -250,7 +250,7 @@ app.controller('CombinisController', function($scope, CombiniService, $ionicLoad
                     counter = $timeout(function() {
                         count--;   
                         countdown();   
-                    }, 1000);    
+                    }, 2000);    
                 }
             };
             countdown();
@@ -272,7 +272,7 @@ app.controller('CombinisController', function($scope, CombiniService, $ionicLoad
                     counter = $timeout(function() {
                         count--;   
                         countdown();   
-                    }, 1000);    
+                    }, 2000);    
                 }
             };
             countdown();
@@ -292,7 +292,7 @@ app.controller('CombinisController', function($scope, CombiniService, $ionicLoad
                     counter = $timeout(function() {
                         count--;   
                         countdown();   
-                    }, 1000);    
+                    }, 2000);    
                 }
             };
             countdown();
@@ -380,8 +380,10 @@ app.controller('CombinisController', function($scope, CombiniService, $ionicLoad
 			});		
 			*/
         }, function(error) {
-			alert('Unable to get location: ' + error.message);
 			$ionicLoading.hide();
+			//alert('Unable to get location: ' + error.message);
+			alert('Você precisa permitir geolocalização pro Combini!');
+			$location.path('/login');
         });
 		
 	}
