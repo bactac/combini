@@ -468,6 +468,10 @@ app.controller("editProfileController", function($scope, $location, UserService)
         }
         
     };
+	
+	$scope.goInventory = function() {
+        $location.path('/inventory');
+    };
 });
 
 
@@ -505,19 +509,19 @@ app.controller("inventoryController", function($scope, $rootScope, UserService, 
         $rootScope.user.title = $scope.user.title;
         UserService.updateMyUser($scope.user);
         UserService.update({user:$scope.user}).success(function(data) {
-            alert('success');
+            //alert('success');
         });
     };
 
     $scope.setHead = function(id) {
-        $scope.user.head = id;
-        $rootScope.user.head = id;
+        $scope.user.head_id = id;
+        $rootScope.user.head_id = id;
         UserService.updateMyUser($scope.user);
     };
 
     $scope.setBody = function(id) {
-        $scope.user.body = id;
-        $rootScope.user.body = id;
+        $scope.user.body_id = id;
+        $rootScope.user.body_id = id;
         UserService.updateMyUser($scope.user);
     };
 });

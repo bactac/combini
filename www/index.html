@@ -64,10 +64,10 @@
 						
 					</ion-list>
 
-						<center class="avatar_sidebar" onclick="alert('Show usuário')">
-							<div class="avatar">
-								<div><img src="./assets/Avatares/{{user.head}}-head.png"></div>
-								<div style="margin-top:-6px;"><img src="./assets/Avatares/{{user.body}}-body.png" ></div>
+						<center class="avatar_sidebar">
+							<div class="avatar" ng-click="editProfile()">
+								<div><img src="./assets/Avatares/{{user.head_id}}-head.png"></div>
+								<div style="margin-top:-6px;"><img src="./assets/Avatares/{{user.body_id}}-body.png" ></div>
 								<div class="full_title">{{user.name}}, {{user.title}}</div>
 							</div>
 						</center>

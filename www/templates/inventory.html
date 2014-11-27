@@ -9,8 +9,8 @@
 		<div class="col">		
 			<div class="avatar">
 				<center>
-					<div><img ng-src="./assets/Avatares/{{user.head}}-head.png"></div>
-					<div style="margin-top:-6px;"><img ng-src="./assets/Avatares/{{user.body}}-body.png" ></div>
+					<div><img ng-src="./assets/Avatares/{{user.head_id}}-head.png"></div>
+					<div style="margin-top:-6px;"><img ng-src="./assets/Avatares/{{user.body_id}}-body.png" ></div>
 				</center>
 			</div>
 		</div>		
@@ -25,7 +25,7 @@
 		</div>
 	</div>
 	
-	<div class="row"><div class="col"><center><h3>Cabecas!</h3></center></div></div>
+	<div class="row"><div class="col"><center><h3>Cabeças!</h3></center></div></div>
 	<ion-scroll direction="x" >
 		<div class="row" style="width:960px; background-color:#ffffff" >
 			<div class="col" ng-click="setHead(1)" ng-class="{ selected: user.head == 1}">
