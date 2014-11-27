@@ -18,7 +18,8 @@
 			<center>
 				<h2>
 					{{user.name}}, 
-					<select ng-model="user.title_id" ng-options="title.id as title.name for title in titles" ng-change="onTitleChange(title.id, title.name)">
+					<select ng-model="user.title_id" ng-change="onTitleChange()" ng-options="title.id as title.name for title in titles">
+						<option disabled ng-repeat="titleDisabled in titlesDisabled" value="">{{titleDisabled.name}}</option>
                     </select>
 				</h2>
 			</center>		

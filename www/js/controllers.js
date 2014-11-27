@@ -118,10 +118,14 @@ app.controller("SignupController", function($scope, $location, UserService, Titl
     $scope.form.user = { title_id : "",name : "",email : "",motto : "",avatar : "",password : "",password2 : "" };
 
     TitleService.index().success(function(data) {
-        $scope.titles = data;
-        $scope.form.user.title_id = data[0].id;
-    }).error(function(data) {
-        //alert("Nao consegui puxar os titulos T_T");
+        $scope.titles = [];
+        
+        for (var i = 0; i < data.length; i++) {
+            if (data[i].lvl < 2) {
+                $scope.titles.push(data[i]);
+            }
+        }
+        $scope.form.user.title_id = $scope.titles[0].id;
     });
 
     $scope.sendForm = function() {
@@ -211,7 +215,7 @@ app.controller("CombiniFormSendController", function($scope, $location, $statePa
 /**
 		COMBINIS CONTROLLER
 **/
-app.controller('CombinisController', function($scope, CombiniService, $ionicLoading, $compile, $cordovaGeolocation, $location, UserService, $timeout) {
+app.controller('CombinisController', function($scope, $rootScope, CombiniService, $ionicLoading, $compile, $cordovaGeolocation, $location, UserService, $timeout) {
 
 	$scope.form = { latitude : "", longitude : "", limit : ""};
     $scope.combinis = [];
@@ -312,6 +316,9 @@ app.controller('CombinisController', function($scope, CombiniService, $ionicLoad
             mensagem += "!!";
             alert(mensagem);
         }
+        $rootScope.user = data;
+        $scope.user = data;
+        UserService.updateMyUser($scope.user);
     });
 
     var createMarker = function(data) {
@@ -365,7 +372,7 @@ app.controller('CombinisController', function($scope, CombiniService, $ionicLoad
 			myLatlng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
 			$scope.map.setCenter(myLatlng);
 
-            CombiniService.index(pos.coords.latitude, pos.coords.longitude, 20).success(function(data){
+            CombiniService.index(pos.coords.latitude, pos.coords.longitude, 100).success(function(data){
                 $scope.markers = [];
                 for (var i = 0; i < data.length; i++) {
                     createMarker(data[i]);
@@ -496,17 +503,34 @@ app.controller("editProfileController", function($scope, $location, $ionicLoadin
 
 
 
-app.controller("storeController", function($scope, $ionicPopup, $ionicLoading, StoreService, UserService) {
+app.controller("storeController", function($scope, $ionicPopup, $ionicLoading, StoreService, UserService, InventoryService) {
     $scope.user = UserService.getUser();
+
+    var inventory = [];
 
     $ionicLoading.show({
         template: "<i class='icon ion-loading-c'></i>",
         content: 'Getting current location...',
         showBackdrop: false
     });
-    StoreService.index().success(function(data) {
-        $scope.products = data;
-        $ionicLoading.hide();
+
+    InventoryService.index($scope.user.id).success(function(data){
+        inventory = data;
+        StoreService.index().success(function(data) {
+            $scope.products = data;
+            for (var i = 0; i < $scope.products.length; i++) {
+                for (var j = 0; j < inventory.length && !$scope.products[i].owned; j++) {
+
+                    if (inventory[j].id == ($scope.products[i]).id) {
+                        $scope.products[i].owned = true;
+                    }
+                    else {
+                        $scope.products[i].owned = false;
+                    }   
+                }
+            }
+            $ionicLoading.hide();
+        });
     });
 
     $scope.change = function(product_category_id) {
@@ -517,6 +541,17 @@ app.controller("storeController", function($scope, $ionicPopup, $ionicLoading, S
         });
         StoreService.index(product_category_id).success(function(data){
             $scope.products = data;
+            for (var i = 0; i < $scope.products.length; i++) {
+                for (var j = 0; j < inventory.length && !$scope.products[i].owned; j++) {
+
+                    if (inventory[j].id == ($scope.products[i]).id) {
+                        $scope.products[i].owned = true;
+                    }
+                    else {
+                        $scope.products[i].owned = false;
+                    }   
+                }
+            }
             $ionicLoading.hide();
         }).error(function(data){
             alert("Falha inesperada");
@@ -524,24 +559,52 @@ app.controller("storeController", function($scope, $ionicPopup, $ionicLoading, S
         });
     };
 
-    $scope.buy = function(name,id) {
-        var confirmPopup = $ionicPopup.confirm({
-            title: name,
-            template: 'Tem certeza que quer comprar?'
-        });
-        confirmPopup.then(function(res) {
-            if(res) {
-                StoreService.buy(id, $scope.user.id).success(function(data) {
-                    alert("Compra feita com sucesso!");
-                    $ionicLoading.hide()
-                }).error(function(data) {
-                    alert("Compra falhou");
-                    $ionicLoading.hide();
-                });
-            } else {
-                console.log('You are not sure');
-            }
-        });
+    $scope.buy = function(name,id,price,lvl) {
+        if ($scope.user.lvl < lvl) {
+            alert("Voce nao tem level o suficiente");
+        }
+        else if ($scope.user.gold < price){
+            alert("Voce nao tem gold o suficiente");
+        }
+        else{
+            var confirmPopup = $ionicPopup.confirm({
+                title: name,
+                template: 'Tem certeza que quer comprar?'
+            });
+            confirmPopup.then(function(res) {
+                if(res) {
+
+                    $scope.id_bought = id;
+                    $scope.price_bought = price;
+                    
+                    StoreService.buy(id, $scope.user.id).success(function(data) {
+                        for (var i=0; i<$scope.products.length; i++) {
+                            if ($scope.products[i].id == $scope.id_bought) {
+                                $scope.products[i].owned = true;
+                            }
+
+                        }
+
+                        $scope.user.gold -= $scope.price_bought;
+
+                        UserService.updateMyUser($scope.user);
+                        UserService.update({user:$scope.user}).success(function(data) {
+                            
+                            $ionicLoading.hide(); 
+                            $scope.id_bought = null;   
+                            alert("Compra feita com sucesso!");
+                        });
+                    }).error(function(data) {
+                        alert("Compra falhou");
+                        $scope.id_bought = null;
+                        $ionicLoading.hide();
+                    });
+                } else {
+                    console.log('You are not sure');
+                }
+            });
+        }
+        
     };
     
 });
@@ -556,7 +619,18 @@ app.controller("inventoryController", function($scope, $rootScope, $ionicLoading
     });
 
     TitleService.index().success(function(data) {
-        $scope.titles = data;
+        $scope.titles = [];
+        $scope.titlesDisabled = [];
+        for (var i = 0; i < data.length; i++) {
+            if ($scope.user.lvl < data[i].lvl) {
+                data[i].name = data[i].name + " | Lvl min: " + data[i].lvl;
+                $scope.titlesDisabled.push(data[i])
+            }
+            else {
+                $scope.titles.push(data[i]);
+            }
+        }
+        console.log($scope.user.title_id);
     });
 
     $scope.heads = [];

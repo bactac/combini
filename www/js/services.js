@@ -222,7 +222,7 @@ app.factory('UserService', function($http, StorageService){
                 headers: { 'Content-Type': 'application/json' },
                 data: user
             }).success(function(data){
-                cacheStorage(data);
+                setUser(data);
             });
         },
 

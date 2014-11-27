@@ -16,7 +16,8 @@
 					      	<p>{{product.description}}</p>
 					      	<p>Lvl min: {{product.min_lvl}}</p>
 					      	<p>Gold: {{product.price}}</p>
-						    <button class="button button-balanced" ng-click="buy(product.name, product.id)">
+					      	<p ng-show="product.owned" style="color:green;"> Voce ja possui este item</p>
+						    <button class="button button-balanced" ng-click="buy(product.name, product.id, product.price, product.min_lvl)" ng-disabled="product.owned">
 
 						      	<i class="icon ion-social-usd"></i>
 						    </button>
@@ -34,9 +35,10 @@
 					      	<img ng-src="./assets/Avatares/{{product.image_url}}">
 					      	<h2>{{product.name}}</h2>
 					      	<p>{{product.description}}</p>
-					      	<p>Lvl min: {{product.min_lvl</p>
-					      	<p>Gold: {{price}}</p>
-						    <button class="button button-balanced" ng-click="buy(product.name)">
+					      	<p>Lvl min: {{product.min_lvl}}</p>
+					      	<p>Gold: {{product.price}}</p>
+					      	<p ng-show="product.owned" style="color:green;"> Voce ja possui este item</p>
+						    <button class="button button-balanced" ng-click="buy(product.name, product.id, product.price, product.min_lvl)" ng-disabled="product.owned">
 						      	<i class="icon ion-social-usd"></i>
 						    </button>
 					    </a>
@@ -51,9 +53,10 @@
 					      	<img ng-src="./assets/Avatares/{{product.image_url}}">
 					      	<h2>{{product.name}}</h2>
 					      	<p>{{product.description}}</p>
-					      	<p>Lvl min: {{product.min_lvl</p>
-					      	<p>Gold: {{price}}</p>
-						    <button class="button button-balanced" ng-click="buy(product.name)">
+					      	<p>Lvl min: {{product.min_lvl}}</p>
+					      	<p>Gold: {{product.price}}</p>
+					      	<p ng-show="product.owned" style="color:green;"> Voce ja possui este item</p>		
+						    <button class="button button-balanced" ng-click="buy(product.name, product.id, product.price, product.min_lvl)" ng-disabled="product.owned">
 						      	<i class="icon ion-social-usd"></i>
 						    </button>
 					    </a>
