@@ -231,76 +231,87 @@ app.controller('CombinisController', function($scope, CombiniService, $ionicLoad
         var diffLvl = data.lvl - user.lvl;
         var diffGold = data.gold - user.gold;
 
-        var alertXp = function() {
-            var count = 1;
-            var counter;
+        // var alertXp = function() {
+        //     var count = 1;
+        //     var counter;
 
-            $scope.alert = "+" + (diffXp) + " XP!";
+        //     $scope.alert = "+" + (diffXp) + " XP!";
 
-            var countdown = function() {
-                if (count == 0) {
-                    $timeout.cancel(counter);
-                    $scope.alert = "";
-                    if (diffLvl)
-                        alertLvl();
-                    else if (diffGold)
-                        alertGold();
-                }
-                else {
-                    counter = $timeout(function() {
-                        count--;   
-                        countdown();   
-                    }, 1000);    
-                }
-            };
-            countdown();
+        //     var countdown = function() {
+        //         if (count == 0) {
+        //             $timeout.cancel(counter);
+        //             $scope.alert = "";
+        //             if (diffLvl)
+        //                 alertLvl();
+        //             else if (diffGold)
+        //                 alertGold();
+        //         }
+        //         else {
+        //             counter = $timeout(function() {
+        //                 count--;   
+        //                 countdown();   
+        //             }, 1000);    
+        //         }
+        //     };
+        //     countdown();
+        // }
+        // var alertLvl = function() {
+        //     var count = 1;
+        //     var counter;
+
+        //     $scope.alert = "+" + (diffLvl) + "Lvl!";
+
+        //     var countdown = function() {
+        //         if (count == 0) {
+        //             $timeout.cancel(counter);
+        //             $scope.alert = "";
+        //             if (diffGold)
+        //                 alertGold();
+        //         }
+        //         else {
+        //             counter = $timeout(function() {
+        //                 count--;   
+        //                 countdown();   
+        //             }, 1000);    
+        //         }
+        //     };
+        //     countdown();
+        // }
+        // var alertGold = function() {
+        //     var count = 1;
+        //     var counter;
+
+        //     $scope.alert = "+" + (diffGold) + " gold!";
+
+        //     var countdown = function() {
+        //         if (count == 0) {
+        //             $timeout.cancel(counter);
+        //             $scope.alert = "";
+        //         }
+        //         else {
+        //             counter = $timeout(function() {
+        //                 count--;   
+        //                 countdown();   
+        //             }, 1000);    
+        //         }
+        //     };
+        //     countdown();
+        // }
+
+        // if (diffXp) 
+        //     alertXp();
+        if (diffXp || diffGold || diffLvl) {
+            var mensagem = "Voce conseguiu";
+        
+            if (diffXp)
+                mensagem += " " + diffXp + "XP";
+            if (diffLvl)
+                mensagem += " " + diffLvl + "Lvl";
+            if (diffGold)
+                mensagem += " " + diffGold + "gold";
+            mensagem += "!!";
+            alert(mensagem);
         }
-        var alertLvl = function() {
-            var count = 1;
-            var counter;
-
-            $scope.alert = "+" + (diffLvl) + "Lvl!";
-
-            var countdown = function() {
-                if (count == 0) {
-                    $timeout.cancel(counter);
-                    $scope.alert = "";
-                    if (diffGold)
-                        alertGold();
-                }
-                else {
-                    counter = $timeout(function() {
-                        count--;   
-                        countdown();   
-                    }, 1000);    
-                }
-            };
-            countdown();
-        }
-        var alertGold = function() {
-            var count = 1;
-            var counter;
-
-            $scope.alert = "+" + (diffGold) + " gold!";
-
-            var countdown = function() {
-                if (count == 0) {
-                    $timeout.cancel(counter);
-                    $scope.alert = "";
-                }
-                else {
-                    counter = $timeout(function() {
-                        count--;   
-                        countdown();   
-                    }, 1000);    
-                }
-            };
-            countdown();
-        }
-
-        if (diffXp) 
-            alertXp();
-
     });
 
     var createMarker = function(data) {
@@ -450,17 +461,24 @@ app.controller("showUserController", function($scope, UserService) {
 
 
 
-app.controller("editProfileController", function($scope, $location, UserService) {
+app.controller("editProfileController", function($scope, $location, $ionicLoading, UserService) {
     $scope.form = { user : "" };
     $scope.form.user = UserService.getUser();
 
     $scope.sendForm = function() {
         if ($scope.form.user.password == $scope.form.user.password2) {
+            $ionicLoading.show({
+                template: "<i class='icon ion-loading-c'></i>",
+                content: 'Getting current location...',
+                showBackdrop: false
+            });
             UserService.update($scope.form).success(function() {
                 //alert("Updato!");
                 $location.path('/combinis');
+                $ionicLoading.hide();
             }).error(function() {
                 alert("Não deu pra atualizar..");
+                $ionicLoading.hide();
             });    
         }
         else {
@@ -472,29 +490,93 @@ app.controller("editProfileController", function($scope, $location, UserService)
 
 
 
-app.controller("storeController", function($scope, $ionicPopup) {
-    $scope.buy = function(id) {
+app.controller("storeController", function($scope, $ionicPopup, $ionicLoading, StoreService, UserService) {
+    $scope.user = UserService.getUser();
+
+    $ionicLoading.show({
+        template: "<i class='icon ion-loading-c'></i>",
+        content: 'Getting current location...',
+        showBackdrop: false
+    });
+    StoreService.index().success(function(data) {
+        $scope.products = data;
+        $ionicLoading.hide();
+    });
+
+    $scope.change = function(product_category_id) {
+        $ionicLoading.show({
+            template: "<i class='icon ion-loading-c'></i>",
+            content: 'Getting current location...',
+            showBackdrop: false
+        });
+        StoreService.index(product_category_id).success(function(data){
+            $scope.products = data;
+            $ionicLoading.hide();
+        }).error(function(data){
+            alert("Falha inesperada");
+            $ionicLoading.hide();
+        });
+    };
+
+    $scope.buy = function(name,id) {
         var confirmPopup = $ionicPopup.confirm({
-            title: 'Item #' + id,
+            title: name,
             template: 'Tem certeza que quer comprar?'
         });
         confirmPopup.then(function(res) {
             if(res) {
-                console.log('You are sure');
+                StoreService.buy(id, $scope.user.id).success(function(data) {
+                    alert("Compra feita com sucesso!");
+                    $ionicLoading.hide()
+                }).error(function(data) {
+                    alert("Compra falhou");
+                    $ionicLoading.hide();
+                });
             } else {
                 console.log('You are not sure');
             }
         });
-    }
+    };
     
 });
 
-app.controller("inventoryController", function($scope, $rootScope, UserService, TitleService) {
+app.controller("inventoryController", function($scope, $rootScope, $ionicLoading, UserService, TitleService, InventoryService) {
     $scope.user = $rootScope.user;
+
+    $ionicLoading.show({
+        template: "<i class='icon ion-loading-c'></i>",
+        content: 'Getting current location...',
+        showBackdrop: false
+    });
 
     TitleService.index().success(function(data) {
         $scope.titles = data;
     });
+
+    $scope.heads = [];
+    $scope.bodys = [];
+
+    InventoryService.index($scope.user.id).success(function(data) {
+        for (var i = 0; i < data.length; i++) {
+            switch(data[i].product_category_id) {
+                case 1:
+                    $scope.heads.push(data[i]);
+                    break;
+                case 2:
+                    $scope.bodys.push(data[i]);
+                    break;
+            }
+        }
+
+        var headsWidth = 120 * $scope.heads.length;
+        var bodysWidth = 120 * $scope.bodys.length;
+        $scope.headsWidth = {width: headsWidth + 'px'};
+        $scope.bodysWidth = {width: bodysWidth + 'px'};
+        $ionicLoading.hide();
+    }).error(function(data) {
+        $ionicLoading.hide();
+    });
+
 
     $scope.onTitleChange = function() {
         for (var i = 0; i < $scope.titles.length; i++) {
@@ -505,20 +587,31 @@ app.controller("inventoryController", function($scope, $rootScope, UserService, 
         $rootScope.user.title = $scope.user.title;
         UserService.updateMyUser($scope.user);
         UserService.update({user:$scope.user}).success(function(data) {
-            alert('success');
+            alert('Troca de titulo com sucesso');
         });
     };
 
-    $scope.setHead = function(id) {
-        $scope.user.head = id;
-        $rootScope.user.head = id;
+
+    $scope.setHead = function(id, url) {
+        $scope.user.head_id = id;
+        $rootScope.user.head_id = id;
+        $scope.user.head_url = url;
+        $rootScope.user.head_url = url;
         UserService.updateMyUser($scope.user);
+        UserService.update({user:$scope.user}).success(function(data) {
+            alert('Troca de cabeca com sucesso');
+        });
     };
 
-    $scope.setBody = function(id) {
-        $scope.user.body = id;
-        $rootScope.user.body = id;
+    $scope.setBody = function(id, url) {
+        $scope.user.body_id = id;
+        $rootScope.user.body_id = id;
+        $scope.user.body_url = url;
+        $rootScope.user.body_url = url;
         UserService.updateMyUser($scope.user);
+        UserService.update({user:$scope.user}).success(function(data) {
+            alert('Troca de corpo com sucesso');
+        });
     };
 });
 

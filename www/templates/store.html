@@ -6,83 +6,17 @@
 	<ion-content padding="true">
 		<ion-tabs>
 
-		  	<ion-tab title="Todos" >
+		  	<ion-tab title="Todos" on-select="change(0)">
 		  		<ion-content padding="true">
 			    	<div class="list">
 
-					    <a class="item item-thumbnail-left item-button-right" >
-					      	<img src="./assets/Avatares/1-head.png">
-					      	<h2>Cabeca do Batman</h2>
-					      	<p>Lvl min: 9999</p>
-					      	<p>Gold: 9999</p>
-						    <button class="button button-balanced" ng-click="buy(1)">
-						      	<i class="icon ion-social-usd"></i>
-						    </button>
-					    </a>
-					    <a class="item item-thumbnail-left item-button-right" >
-					      	<img src="./assets/Avatares/2-head.png">
-					      	<h2>Cabeca do Goku</h2>
-					      	<p>Lvl min: 9999</p>
-					      	<p>Gold: 9999</p>
-						    <button class="button button-balanced" ng-click="buy(2)">
-						      	<i class="icon ion-social-usd"></i>
-						    </button>
-					    </a>
-					    <a class="item item-thumbnail-left item-button-right" >
-					      	<img src="./assets/Avatares/3-head.png">
-					      	<h2>Cabeca do Green Mario</h2>
-					      	<p>Lvl min: 9999</p>
-					      	<p>Gold: 9999</p>
-						    <button class="button button-balanced" ng-click="buy(3)">
-						      	<i class="icon ion-social-usd"></i>
-						    </button>
-					    </a>
-					    <a class="item item-thumbnail-left item-button-right" >
-					      	<img src="./assets/Avatares/4-head.png">
-					      	<h2>Cabeca do Mario</h2>
-					      	<p>Lvl min: 9999</p>
-					      	<p>Gold: 9999</p>
-						    <button class="button button-balanced" ng-click="buy(4)">
-						      	<i class="icon ion-social-usd"></i>
-						    </button>
-					    </a>
-
-
-
-
-					    <a class="item item-thumbnail-left item-button-right" >
-					      	<img src="./assets/Avatares/1-body.png">
-					      	<h2>Corpo do Batman</h2>
-					      	<p>Lvl min: 9999</p>
-					      	<p>Gold: 9999</p>
-						    <button class="button button-balanced" ng-click="buy(1)">
-						      	<i class="icon ion-social-usd"></i>
-						    </button>
-					    </a>
-					    <a class="item item-thumbnail-left item-button-right" >
-					      	<img src="./assets/Avatares/2-body.png">
-					      	<h2>Corpo do Goku</h2>
-					      	<p>Lvl min: 9999</p>
-					      	<p>Gold: 9999</p>
-						    <button class="button button-balanced" ng-click="buy(2)">
-						      	<i class="icon ion-social-usd"></i>
-						    </button>
-					    </a>
-					    <a class="item item-thumbnail-left item-button-right" >
-					      	<img src="./assets/Avatares/3-body.png">
-					      	<h2>Corpo do Green Mario</h2>
-					      	<p>Lvl min: 9999</p>
-					      	<p>Gold: 9999</p>
-						    <button class="button button-balanced" ng-click="buy(3)">
-						      	<i class="icon ion-social-usd"></i>
-						    </button>
-					    </a>
-					    <a class="item item-thumbnail-left item-button-right" >
-					      	<img src="./assets/Avatares/4-body.png">
-					      	<h2>Corpo do Mario</h2>
-					      	<p>Lvl min: 9999</p>
-					      	<p>Gold: 9999</p>
-						    <button class="button button-balanced" ng-click="buy(4)">
+					    <a class="item item-thumbnail-left item-button-right" ng-repeat="product in products">
+					      	<img ng-src="./assets/Avatares/{{product.image_url}}">
+					      	<h2>{{product.name}}</h2>
+					      	<p>{{product.description}}</p>
+					      	<p>Lvl min: {{product.min_lvl}}</p>
+					      	<p>Gold: {{product.price}}</p>
+						    <button class="button button-balanced" ng-click="buy(product.name, product.id)">
 						      	<i class="icon ion-social-usd"></i>
 						    </button>
 					    </a>
@@ -91,43 +25,17 @@
 
 		  	</ion-tab>
 
-		  	<ion-tab title="Cabecas" >
+		  	<ion-tab title="Cabecas" on-select="change(1)" >
 		  		<ion-content padding="true">
 			    	<div class="list">
 
-					    <a class="item item-thumbnail-left item-button-right" >
-					      	<img src="./assets/Avatares/1-head.png">
-					      	<h2>Cabeca do Batman</h2>
-					      	<p>Lvl min: 9999</p>
-					      	<p>Gold: 9999</p>
-						    <button class="button button-balanced" ng-click="buy(1)">
-						      	<i class="icon ion-social-usd"></i>
-						    </button>
-					    </a>
-					    <a class="item item-thumbnail-left item-button-right" >
-					      	<img src="./assets/Avatares/2-head.png">
-					      	<h2>Cabeca do Goku</h2>
-					      	<p>Lvl min: 9999</p>
-					      	<p>Gold: 9999</p>
-						    <button class="button button-balanced" ng-click="buy(2)">
-						      	<i class="icon ion-social-usd"></i>
-						    </button>
-					    </a>
-					    <a class="item item-thumbnail-left item-button-right" >
-					      	<img src="./assets/Avatares/3-head.png">
-					      	<h2>Cabeca do Green Mario</h2>
-					      	<p>Lvl min: 9999</p>
-					      	<p>Gold: 9999</p>
-						    <button class="button button-balanced" ng-click="buy(3)">
-						      	<i class="icon ion-social-usd"></i>
-						    </button>
-					    </a>
-					    <a class="item item-thumbnail-left item-button-right" >
-					      	<img src="./assets/Avatares/4-head.png">
-					      	<h2>Cabeca do Mario</h2>
-					      	<p>Lvl min: 9999</p>
-					      	<p>Gold: 9999</p>
-						    <button class="button button-balanced" ng-click="buy(4)">
+					    <a class="item item-thumbnail-left item-button-right" ng-repeat="product in products">
+					      	<img ng-src="./assets/Avatares/{{product.image_url}}">
+					      	<h2>{{product.name}}</h2>
+					      	<p>{{product.description}}</p>
+					      	<p>Lvl min: {{product.min_lvl</p>
+					      	<p>Gold: {{price}}</p>
+						    <button class="button button-balanced" ng-click="buy(product.name)">
 						      	<i class="icon ion-social-usd"></i>
 						    </button>
 					    </a>
@@ -135,42 +43,16 @@
 			    </ion-content>
 		  	</ion-tab>
 
-		  	<ion-tab title="Corpo" >
+		  	<ion-tab title="Corpo"  on-select="change(2)">
 		  		<ion-content padding="true">
 		  			<div class="list">
-			    		<a class="item item-thumbnail-left item-button-right" >
-					      	<img src="./assets/Avatares/1-body.png">
-					      	<h2>Corpo do Batman</h2>
-					      	<p>Lvl min: 9999</p>
-					      	<p>Gold: 9999</p>
-						    <button class="button button-balanced" ng-click="buy(1)">
-						      	<i class="icon ion-social-usd"></i>
-						    </button>
-					    </a>
-					    <a class="item item-thumbnail-left item-button-right" >
-					      	<img src="./assets/Avatares/2-body.png">
-					      	<h2>Corpo do Goku</h2>
-					      	<p>Lvl min: 9999</p>
-					      	<p>Gold: 9999</p>
-						    <button class="button button-balanced" ng-click="buy(2)">
-						      	<i class="icon ion-social-usd"></i>
-						    </button>
-					    </a>
-					    <a class="item item-thumbnail-left item-button-right" >
-					      	<img src="./assets/Avatares/3-body.png">
-					      	<h2>Corpo do Green Mario</h2>
-					      	<p>Lvl min: 9999</p>
-					      	<p>Gold: 9999</p>
-						    <button class="button button-balanced" ng-click="buy(3)">
-						      	<i class="icon ion-social-usd"></i>
-						    </button>
-					    </a>
-					    <a class="item item-thumbnail-left item-button-right" >
-					      	<img src="./assets/Avatares/4-body.png">
-					      	<h2>Corpo do Mario</h2>
-					      	<p>Lvl min: 9999</p>
-					      	<p>Gold: 9999</p>
-						    <button class="button button-balanced" ng-click="buy(4)">
+			    		<a class="item item-thumbnail-left item-button-right" ng-repeat="product in products">
+					      	<img ng-src="./assets/Avatares/{{product.image_url}}">
+					      	<h2>{{product.name}}</h2>
+					      	<p>{{product.description}}</p>
+					      	<p>Lvl min: {{product.min_lvl</p>
+					      	<p>Gold: {{price}}</p>
+						    <button class="button button-balanced" ng-click="buy(product.name)">
 						      	<i class="icon ion-social-usd"></i>
 						    </button>
 					    </a>

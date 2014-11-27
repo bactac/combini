@@ -346,3 +346,65 @@ app.factory('TitleService', function($http){
     };
 
 });
+
+
+
+app.factory('StoreService', function($http){
+    return {
+        index: function(product_category_id) {
+            if (product_category_id) {
+                return $http({
+                    url: 'http://wickedvikings.herokuapp.com/product_categories/' + product_category_id + '/products.json',
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' }
+                    // params: input
+                });        
+            }
+
+            else {
+                return $http({
+                    url: 'http://wickedvikings.herokuapp.com/products.json',
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' }
+                    // params: input
+                });    
+            }
+            
+        },
+
+        buy: function(product_id, user_id) {
+            var purchase = { purchase: {} };
+            purchase.purchase.product_id = product_id;
+            purchase.purchase.user_id = user_id;
+
+
+            return $http({
+                url: 'http://wickedvikings.herokuapp.com/buy.json',
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                data: purchase
+            });
+        }
+        
+    };
+
+});
+
+
+app.factory('InventoryService', function($http){
+    return {
+        index: function(user_id) {
+            return $http({
+                url: 'http://wickedvikings.herokuapp.com/users/'+user_id+'/inventory_items.json',
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' }
+                // params: input
+            });     
+
+            
+        }
+        
+    };
+
+});
+
