@@ -27,6 +27,8 @@
 				<div class="col combini-icon"><img ng-src="./assets/48/{{combini.type_id}}.png"></div>
 				
 			</div>
+			
+			
 					
 			<div class="row">		
 				<i class="icon" ng-class="{ 'ion-ios7-star' : combini.quality_rank >= 1, 'ion-ios7-star-outline' : combini.quality_rank < 1 }" ></i>
@@ -45,6 +47,8 @@
 		<div class="col col-10 bubble-right"></div>
 	</div>
 	
+	<div class="row card item-text-wrap"><p>"{{combini.comment}}"</p></div>
+	
 	<div class="row">{{combini.comments.length}} comentários:</div>
 	
 	<ion-scroll direction="y">
@@ -52,6 +56,7 @@
 			<div class="item item-text-wrap">
 				<div class="row">
 					<div class="col col-20">
+						<!--TODO pegar o head_id do user q comentou-->
 						<img src="./assets/Avatares/1-head.png" style="width:100%">
 						<br>
 						<!--{{comment.user_id}}-->

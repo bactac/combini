@@ -391,8 +391,10 @@ app.controller('CombinisController', function($scope, CombiniService, $ionicLoad
 			});		
 			*/
         }, function(error) {
-			alert('Unable to get location: ' + error.message);
 			$ionicLoading.hide();
+			//alert('Unable to get location: ' + error.message);
+			alert('Você precisa permitir geolocalização pro Combini!');
+			$location.path('/login');
         });
 		
 	}
@@ -485,6 +487,10 @@ app.controller("editProfileController", function($scope, $location, $ionicLoadin
             alert("As senhas não batem!");
         }
         
+    };
+	
+	$scope.goInventory = function() {
+        $location.path('/inventory');
     };
 });
 

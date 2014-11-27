@@ -7,13 +7,13 @@
 					<!--   Nome e título do user -->
 					
 					
-							<h1>Hodoufo, o paulistano</h1>
+							<h1>{{user.name}}, {{user.title}}</h1>
 						
 					<div class="row">
 						<div class = "col-25">
 							<div class="avatar">
-								<div><img src="./assets/Avatares/6-head.png"></div>
-								<div style="margin-top:-6px;"><img src="./assets/Avatares/2-body.png" ></div>
+								<div><img src="./assets/Avatares/{{user.head_id}}-head.png"></div>
+								<div style="margin-top:-6px;"><img src="./assets/Avatares/{{user.body_id}}-body.png" ></div>
 							</div>
 						</div>
 						<div class="col">
@@ -21,15 +21,15 @@
 								<!-- ajustar esses divs no css, o balao fica pequeno -->
 								<div class="col col-10 bubble-motto-left"></div>
 								<div class="col col-60 bubble-motto-middle">
-									Vou pra aula segunda!
+									{{user.motto}}
 								</div>
 								<div class="col col-10 bubble-motto-right"></div>
 							</div>
 							<div class = "row">
 								<div class = "col">
-									<div id="showUserRank"> Rank: 420 </div>
-									<div id="showUserExp"> Exp: 31415926535897935 </div>
-									<div id="showUserLvl"> Level: 1337 </div>
+									<!--<div id="showUserRank"> Rank: 420 </div>-->
+									<div id="showUserExp"> Exp: {{user.xp}} </div>
+									<div id="showUserLvl"> Level: {{user.lvl}} </div>
 								</div>
 							</div>
 						</div>
