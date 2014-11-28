@@ -26,6 +26,7 @@ app.controller("MainController", function($rootScope, $location, UserService, $i
 	
 	$rootScope.showUser = function() {
 		$location.path('/showUser');
+		$rootScope.toggleRight();
     };
 		
 	$rootScope.toggleRight = function() {
@@ -764,4 +765,9 @@ app.controller("showCombiniController", function($scope, $stateParams, CombiniSe
     $scope.randomAvatar = function() {
         return Math.floor(Math.random()*8 + 1);
     }
+	
+	$scope.gotoUser = function(_user_id) {
+		location.href = '#/showUser/' + _user_id;
+	}
+	
 });

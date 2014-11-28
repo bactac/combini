@@ -57,7 +57,7 @@
 				<div class="row">
 					<div class="col col-20" style="text-align: center">
 						<!--TODO pegar o head_id do user q comentou-->
-						<img ng-src="./assets/Avatares/{{comment.head_url}}" style="width:100%">
+						<img ng-src="./assets/Avatares/{{comment.head_url}}" style="width:100%" ng-click="gotoUser({{comment.user_id}})">
 						<br>
 						{{comment.name}}
 						<!--{{comment.user_id}}-->
