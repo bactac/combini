@@ -39,8 +39,8 @@
 			</div>
 			
 			<div class="row combini-likes">
-				<div class="col combini-likes"><button ng-click="like(true)"  class="button button-outline button-block button-balanced combini-like icon ion-thumbsup">&nbsp;&nbsp;{{combini.likesCount.likes}}</button></div>
-				<div class="col combini-likes"><button ng-click="like(false)" class="button button-outline button-block button-assertive combini-dislike icon ion-thumbsdown">&nbsp;&nbsp;{{combini.likesCount.dislikes}}</button></div>
+				<div class="col combini-likes"><button ng-click="like(true)"  class="button button-block button-balanced combini-like icon ion-thumbsup" ng-class="{'button-outline' : combini.liked != 1}">&nbsp;&nbsp;{{combini.likesCount.likes}}</button></div>
+				<div class="col combini-likes"><button ng-click="like(false)" class="button  button-block button-assertive combini-dislike icon ion-thumbsdown" ng-class="{'button-outline' : combini.liked != -1}">&nbsp;&nbsp;{{combini.likesCount.dislikes}}</button></div>
 			</div>
 			
 		</div>

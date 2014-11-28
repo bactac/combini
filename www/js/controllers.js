@@ -712,7 +712,11 @@ app.controller("showCombiniController", function($scope, $stateParams, CombiniSe
         });
 
         CombiniService.liked($stateParams.id, $scope.user.id).success(function(data){
-            $scope.combini.liked = data;
+            if (Array.isArray(data)) {
+                $scope.combini.liked = 0;
+            }
+            else if (data == "true") {$scope.combini.liked = 1;}
+            else {$scope.combini.liked = -1;}
         });
 
         CombiniService.showComments($stateParams.id).success(function(data) {
@@ -730,7 +734,7 @@ app.controller("showCombiniController", function($scope, $stateParams, CombiniSe
     });
 
     $scope.like = function(like) {
-        if (!Array.isArray($scope.combini.liked)) {
+        if ($scope.combini.liked != 0) {
             //alert("vc jah deu like porra!");
         } else {
             CombiniService.like($stateParams.id, $scope.user.id, like).success(function(data){
