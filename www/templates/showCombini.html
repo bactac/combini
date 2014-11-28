@@ -8,8 +8,8 @@
 	<div class="row">
 		<div class="col col-25" style="text-align:center">	
 			<div class="avatar">
-					<div><img ng-src="./assets/Avatares/1-head.png"></div>
-					<div style="margin-top:-6px;"><img ng-src="./assets/Avatares/1-body.png" ></div>
+					<div><img ng-src="./assets/Avatares/{{combini.user.head_url}}"></div>
+					<div style="margin-top:-6px;"><img ng-src="./assets/Avatares/{{combini.user.body_url}}" ></div>
 			</div>			
 			<br>
 			<div style="line-height: 80%">
@@ -55,10 +55,11 @@
 		<div class="card"  ng-repeat="comment in combini.comments">
 			<div class="item item-text-wrap">
 				<div class="row">
-					<div class="col col-20">
+					<div class="col col-20" style="text-align: center">
 						<!--TODO pegar o head_id do user q comentou-->
-						<img src="./assets/Avatares/1-head.png" style="width:100%">
+						<img ng-src="./assets/Avatares/{{comment.head_url}}" style="width:100%">
 						<br>
+						{{comment.name}}
 						<!--{{comment.user_id}}-->
 					</div>
 					<div class="col"><p>{{comment.message}}</p></div>
@@ -70,7 +71,7 @@
 				<form ng-submit="sendComment()">					
 					<div class="row">
 						<div class="col col-20">
-							<img src="assets/Avatares/1-head.png" style="width:100%">
+							<img src="assets/Avatares/{{user.head_url}}" style="width:100%">
 						</div>
 						<div class="col">
 							<textarea ng-model="form.comment" placeholder="Comentário!!!" ></textarea>
